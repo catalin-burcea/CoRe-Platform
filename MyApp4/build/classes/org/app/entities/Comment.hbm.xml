@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 3, 2014 5:42:39 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="org.app.entities.Comment" table="comment" catalog="test">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="review" class="org.app.entities.Review" lazy="false" fetch="select">
+            <column name="reviewId" />
+        </many-to-one>
+        <many-to-one name="topic" class="org.app.entities.Topic" lazy="false" fetch="select">
+            <column name="topicId" />
+        </many-to-one>
+        <many-to-one name="user" class="org.app.entities.User" lazy="false" fetch="select">
+            <column name="userId" not-null="true" />
+        </many-to-one>
+        <property name="content" type="string">
+            <column name="content" length="65535" not-null="true" />
+        </property>
+        <property name="date" type="date">
+            <column name="date" length="10" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>
