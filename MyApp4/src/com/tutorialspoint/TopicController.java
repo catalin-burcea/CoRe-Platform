@@ -45,8 +45,7 @@ public class TopicController {
 	}
 	
 	@RequestMapping(value = "/app/topics", method = RequestMethod.GET)
-	public
-	String getTopics(ModelMap model, HttpServletRequest request){
+	public String getTopics(ModelMap model, HttpServletRequest request){
 
 		TopicService topicService = new TopicService();
 		List<Topic> topics = null;

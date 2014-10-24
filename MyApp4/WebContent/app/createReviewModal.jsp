@@ -61,7 +61,7 @@
 		    if (file) {
 		          getAsText(file,answerEditor);
 		    }else{
-		    	////alert("file error");
+		    	//alert("file error");
 		    }
 		});
 

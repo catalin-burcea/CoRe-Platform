@@ -323,7 +323,7 @@ body {
 		</c:choose>
 	</div>
     
-    <script src="//rawgithub.com/stidges/jquery-searchable/master/dist/jquery.searchable-1.0.0.min.js"></script>
+    <script src="http://cdn.rawgit.com/stidges/jquery-searchable/master/dist/jquery.searchable-1.0.0.min.js"></script>
 		
 
 		<c:if test="${user!=null && groupId!=null && (usergroup!=null || admin != null)}">

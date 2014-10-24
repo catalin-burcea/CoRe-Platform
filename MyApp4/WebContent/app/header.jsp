@@ -9,7 +9,7 @@
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="#">CoRe</a>
+			<a class="navbar-brand" href="#">CoRe Platform</a>
 		</div>
 
 		<!-- Collect the nav links, forms, and other content for toggling -->

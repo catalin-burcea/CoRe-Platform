@@ -625,8 +625,6 @@
 						
 				  		</div>
 				  		
-				
-				  		
 						<div class="blockquote-box clearfix">
 				            <div class="blockquote-box blockquote-success clearfix well">
 								<p>
@@ -652,7 +650,6 @@
 				  </div>
 				</div>
 
-	
 				<c:if test="${user!=null && groupId!=null}">
 				   	<%@ include file="sidepanel.jsp"%>
 				</c:if>	

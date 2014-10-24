@@ -1,5 +1,3 @@
-
-
 <script type="text/javascript">
 <%@ include file="assets/bootstrap-select.js" %>
 </script>

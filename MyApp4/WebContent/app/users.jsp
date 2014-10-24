@@ -178,7 +178,7 @@ ul.c-controls li a:hover {
         </div>
 	</div>
     
-    <script src="//rawgithub.com/stidges/jquery-searchable/master/dist/jquery.searchable-1.0.0.min.js"></script>
+    <script src="http://cdn.rawgit.com/stidges/jquery-searchable/master/dist/jquery.searchable-1.0.0.min.js"></script>
     
 </div>
 
