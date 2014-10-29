@@ -14,8 +14,8 @@ import org.springframework.ui.ModelMap;
 @Controller 
 @RequestMapping("/app/login") 
 public class LoginController{
+	
 	private String errorMessage=null;
-	private String admin="burceacatalin";
 	
    @RequestMapping(method = {RequestMethod.POST,RequestMethod.GET})
    public String login(@RequestParam(value="username", required=false) String username,
@@ -29,7 +29,7 @@ public class LoginController{
            request.getSession().setAttribute("user", user);    
            request.getSession().setAttribute("logged", "true");
            ActiveUsersService.activeUsers.add(user.getId());
-           return "redirect:/app/topics";
+           return "redirect:"+CoRePlatformConstants.APP+"/topics";
        }
        else{
     	   errorMessage="Username or password is incorrect! ";

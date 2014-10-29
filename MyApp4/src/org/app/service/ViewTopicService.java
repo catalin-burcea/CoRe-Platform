@@ -16,7 +16,6 @@ import org.app.util.HibernateUtil;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
@@ -114,6 +113,7 @@ public class ViewTopicService {
         return review;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<Comment> getTopicComments(Topic topic){
 		List<Comment> comments =  new ArrayList<Comment>();;
         Session session = HibernateUtil.openSession();
@@ -136,6 +136,7 @@ public class ViewTopicService {
         return comments;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<Comment>  getReviewComments(Review review){
 		List<Comment> comments =  new ArrayList<Comment>();;
         Session session = HibernateUtil.openSession();

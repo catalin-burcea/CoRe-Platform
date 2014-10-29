@@ -45,7 +45,6 @@
     
     window.setSearchParameters = function(){
     	var topicId = GetURLParameter("topic");
-    	var groupId = GetURLParameter("group");
     	if(Reviews.length>0){
     		var reviewId = Reviews[next];
         	var diffModeURL = projectPath+"/diffMode.jsp?topicId="+topicId+"&reviewId="+reviewId;
@@ -132,9 +131,6 @@
     	        		$("#wallmessages[name='topicWallMessages']").append(comment);
     	        	});
             	});
-            	
-	        	
-	        	
             },
             error:function(msg,er,t){
 				//alert(msg+"   "+er+"  "+t);
@@ -210,8 +206,6 @@
     	        		$("#wallmessages[name='reviewWallMessages']").append(comment);
     	        	});
             	});
-	        	
-	        	
             },
             error:function(msg,er,t){
 				//alert(msg+"   "+er+"  "+t);
@@ -246,9 +240,6 @@
                 setSearchParameters();
 
 			});
-			
-
-			
 			checkRating();
             getReviewStars(function(stars){
 	    		$("#reviewStars").text(stars+"/5");
@@ -286,7 +277,6 @@
     	    	   		$('#count').html(rating);
     	    	   		$("#rating").show();
       				}
-
       			});	
      		}else{
      			$("#rateError").show();	
@@ -505,9 +495,6 @@
                }, 800);
                return false;
            });
-           
-           
-
    });
     </script>
 </head>

@@ -19,8 +19,7 @@
         	        		$("#allUsers").append("<option value='"+item.id+"'>"+item.username+"</option>");
         	        	});
         	        },
-        	        error:function(msg,er,t){
-        	        	
+        	        error:function(msg,er,t) {
         	        	//alert(msg+er+t);
         	        } 
         	    });
@@ -74,12 +73,8 @@
         	});
         	
         	window.isValidGroup = function(groupName){
-        		if(groupName == '' || groupMembers.length==0){
-        			return false;
-        		}
-        		return true;
+        		return !(groupName == '' || groupMembers.length == 0);
         	}
-        	
         });
         
         

@@ -1,17 +1,11 @@
 package com.tutorialspoint;
 
-import com.google.gson.Gson;
-
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.app.entities.Comment;
 import org.app.entities.Group;
 import org.app.entities.Review;
@@ -22,18 +16,21 @@ import org.app.entities.UserReviewVote;
 import org.app.service.GroupService;
 import org.app.service.TopicService;
 import org.app.service.ViewTopicService;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.ui.ModelMap;
+
+import com.google.gson.Gson;
 
 @Controller
 public class ViewTopicController {
-
-	private static final String ADMIN = "burceacatalin";
 
 	@RequestMapping(value = "/app/viewTopic/topic/{topicId}/group/{groupId}", method = RequestMethod.GET)
 	public String getViewTopicData(@PathVariable(value = "topicId") Integer topicId, @PathVariable(value = "groupId") Integer groupId, ModelMap model, HttpServletRequest request) {
@@ -44,17 +41,15 @@ public class ViewTopicController {
 
 	@RequestMapping(value = "/app/viewTopic/topic/{topicId}", method = RequestMethod.GET)
 	public String getTopicData(@PathVariable(value = "topicId") Integer topicId, ModelMap model, HttpServletRequest request) {
-		
+
 		this.getTopicData(model, request, null);
 		return "viewTopic";
 	}
 
 	private void getTopicData(ModelMap model, HttpServletRequest request, Integer groupId) {
+
 		User user = (User) request.getSession().getAttribute("user");
-		String modal = "reviewModal";
-		if (user == null) {
-			modal = "notLoggedInModal";
-		}
+		String modal = user != null ? "reviewModal" : "notLoggedInModal";
 		model.addAttribute("modal", modal);
 		model.addAttribute("groupId", groupId);
 		model.addAttribute("user", user);
@@ -63,8 +58,7 @@ public class ViewTopicController {
 		UserGroup ug = gs.getUserGroup(user, group);
 		model.addAttribute("usergroup", ug);
 		model.addAttribute("projectPath", CoRePlatformConstants.PROJECT_PATH);
-		
-		boolean isOwner = gs.isOwner(user,group);
+		boolean isOwner = gs.isOwner(user, group);
 		List<UserGroup> groupMembers = gs.getGroupMembers(group);
 		model.addAttribute("isOwner", isOwner);
 		model.addAttribute("groupMembers", groupMembers);
@@ -73,6 +67,7 @@ public class ViewTopicController {
 	@RequestMapping(value = "/app/getTopicById/{topicId}", method = RequestMethod.GET)
 	public @ResponseBody
 	String getTopicById(@PathVariable(value = "topicId") Integer topicId) throws JSONException {
+
 		JSONObject obj = null;
 		String json = null;
 		if (topicId != null) {
@@ -102,6 +97,7 @@ public class ViewTopicController {
 	@RequestMapping(value = "/app/getReviewById", method = RequestMethod.GET)
 	public @ResponseBody
 	String getReviewById(@RequestParam(value = "reviewId") Integer reviewId) throws JSONException {
+
 		JSONObject obj = null;
 		ViewTopicService vts = new ViewTopicService();
 		Review review = vts.getReviewById(reviewId);
@@ -117,6 +113,7 @@ public class ViewTopicController {
 	@RequestMapping(value = "/app/getReviewStars", method = RequestMethod.GET)
 	public @ResponseBody
 	String getReviewStars(@RequestParam(value = "reviewId") Integer reviewId) {
+
 		ViewTopicService vts = new ViewTopicService();
 		Review review = vts.getReviewById(reviewId);
 		Double stars = vts.getReviewStars(review);
@@ -144,7 +141,6 @@ public class ViewTopicController {
 				obj.put("name", comment.getUser().getFirstName() + " " + comment.getUser().getLastName());
 				ja.put(obj);
 			}
-
 		}
 
 		return ja.toString();
@@ -156,8 +152,8 @@ public class ViewTopicController {
 
 		JSONObject obj = new JSONObject();
 		User user = (User) request.getSession().getAttribute("user");
-		if (user != null && this.ADMIN.equals(user.getUsername()) == true) {
-			obj.put("admin", this.ADMIN);
+		if (user != null && CoRePlatformConstants.ADMIN.equals(user.getUsername()) == true) {
+			obj.put("admin", CoRePlatformConstants.ADMIN);
 		}
 		if (!groupId.equals("null")) {
 			ViewTopicService vts = new ViewTopicService();
@@ -178,11 +174,9 @@ public class ViewTopicController {
 
 		ViewTopicService vts = new ViewTopicService();
 		vts.deleteComment(commentId);
-		String groupParameter = "";
-		if (!groupId.equals("null")) {
-			groupParameter = "/group/" + groupId;
-		}
-		return "redirect:"+CoRePlatformConstants.APP+"/viewTopic/topic/" + topicId + groupParameter;
+		String groupParameter = (!groupId.equals("null")) ? "/group/" + groupId : "";
+
+		return "redirect:" + CoRePlatformConstants.APP + "/viewTopic/topic/" + topicId + groupParameter;
 
 	}
 
@@ -192,11 +186,9 @@ public class ViewTopicController {
 
 		ViewTopicService vts = new ViewTopicService();
 		vts.deleteReview(reviewId);
-		String groupParameter = "";
-		if (groupId != null) {
-			groupParameter = "/group/" + groupId;
-		}
-		return "redirect:"+CoRePlatformConstants.APP+"/viewTopic/topic/" + topicId + groupParameter;
+		String groupParameter = (groupId != null) ? "/group/" + groupId : "";
+
+		return "redirect:" + CoRePlatformConstants.APP + "/viewTopic/topic/" + topicId + groupParameter;
 
 	}
 
@@ -234,6 +226,7 @@ public class ViewTopicController {
 		Topic topic = t.getTopicById(topicId);
 		ViewTopicService vts = new ViewTopicService();
 		vts.insertTopicComment(topicComment, user, topic);
+
 		return "ok";
 	}
 
@@ -246,6 +239,7 @@ public class ViewTopicController {
 		ViewTopicService vts = new ViewTopicService();
 		Review review = vts.getReviewById(reviewId);
 		vts.insertReviewComment(reviewComment, user, review);
+		
 		return "ok";
 	}
 
@@ -270,10 +264,8 @@ public class ViewTopicController {
 		ViewTopicService vts = new ViewTopicService();
 		Review review = vts.getReviewById(reviewId);
 		UserReviewVote urv = vts.getUserReviewVote(review, user);
-		if (urv == null) {
-			return "0";
-		}
-		return urv.getStars() + "";
+		
+		return urv != null ? urv.getStars() + "" : "0";
 	}
 
 	@RequestMapping(value = "/app/insertReview", method = RequestMethod.POST)
@@ -281,21 +273,13 @@ public class ViewTopicController {
 	String insertReview(@RequestParam(value = "reviewCode", required = false) String reviewCode,
 			@RequestParam(value = "reviewDescription", required = false) String reviewDescription, @RequestParam(value = "topicId", required = false) Integer topicId,
 			HttpServletRequest request) {
+		
 		User user = (User) request.getSession().getAttribute("user");
 		TopicService ts = new TopicService();
 		Topic topic = ts.getTopicById(topicId);
 		ViewTopicService vts = new ViewTopicService();
 		vts.insertReview(reviewCode, reviewDescription, user, topic);
+		
 		return "ok";
 	}
-	
-//	@RequestMapping(value = "/app/diffMode/topic/{topicId}/review/{reviewId}", method = RequestMethod.GET)
-//	public String diffMode(@PathVariable(value = "topicId") String topicId,
-//			@PathVariable(value = "reviewId") String reviewId,  ModelMap model,
-//			HttpServletRequest request) {
-//
-//		model.addAttribute("topicId", topicId);
-//		model.addAttribute("reviewId", reviewId);
-//		return "diffMode";
-//	}
 }

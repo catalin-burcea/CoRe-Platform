@@ -46,18 +46,14 @@ $(document).ready(function(){
 		var groupName = $("#editGroupName").val();
 		if(isValidGroup(groupName)==true){
 			updateGroup(groupName, groupId);
-			
 		}else{
 			$("#editGroupError").show().text("Title field must be filled!");
 		}
 		
 	});
 	
-	window.isValidGroup = function(name){
-		if(name == ''){
-			return false;
-		}
-		return true;
+	window.isValidGroup = function(name) {
+		return !(name == '');
 	}
     
 });

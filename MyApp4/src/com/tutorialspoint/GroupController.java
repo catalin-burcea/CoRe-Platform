@@ -22,14 +22,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class GroupController {
 	
-	private String admin="burceacatalin";
-	
 	@RequestMapping(value = "/app/deleteGroup", method = RequestMethod.POST)
 	public String deleteGroup(@RequestParam(value="groupId", required = false) Integer groupId){
 
 		GroupService gs = new GroupService();
 		gs.deleteGroup(groupId);
-		return "redirect:/app/groups";
+		return "redirect:"+CoRePlatformConstants.APP+"/groups";
 
 	}
 	
@@ -39,7 +37,7 @@ public class GroupController {
 
 		GroupService gs = new GroupService();
 		gs.updateGroup(groupId, groupName);
-		return "redirect:/app/groups";
+		return "redirect:"+CoRePlatformConstants.APP+"/groups";
 
 	}
 	
@@ -99,9 +97,9 @@ public class GroupController {
 		GroupService gs = new GroupService();
 		List<UserGroup> ownerGroups = gs.getOwnerGroups(user);
 		List<UserGroup> memberGroups = gs.getMemberGroups(user);
-		if(user!=null && admin.equals(user.getUsername())==true){
+		if(user!=null && CoRePlatformConstants.ADMIN.equals(user.getUsername())==true){
 			List<Group> allGroups = gs.getAllGroups();
-			model.addAttribute("admin",admin);
+			model.addAttribute("admin",CoRePlatformConstants.ADMIN);
 			model.addAttribute("allGroups",allGroups);
 		}
 		model.addAttribute("ownerGroups", ownerGroups);

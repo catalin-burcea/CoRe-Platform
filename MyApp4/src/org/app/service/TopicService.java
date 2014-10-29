@@ -83,6 +83,7 @@ public class TopicService {
 	        return list;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<Topic> getTopicsByGroupId(Integer groupId){
 		 List<Topic> list = new ArrayList<Topic>();
 	        Session session = HibernateUtil.openSession();
@@ -108,6 +109,7 @@ public class TopicService {
 	        return list;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<Tag> getTags(){
 		 List<Tag> list = new ArrayList<Tag>();
 	        Session session = HibernateUtil.openSession();

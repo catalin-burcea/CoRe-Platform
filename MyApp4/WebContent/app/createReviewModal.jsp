@@ -50,10 +50,7 @@
 		});
 		
 		window.isValidReview = function(description, code){
-			if(description=='' || code==''){
-				return false;
-			}
-			return true;
+			return !(description=='' || code=='');
 		}
 		
 		$("#createReviewFile").change(function(evt) {

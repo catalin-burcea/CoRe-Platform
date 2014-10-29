@@ -17,9 +17,9 @@
 		<div class="collapse navbar-collapse"
 			id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<li><a href="/MyApp4/app/topics">Topics</a></li>
-				<li><a href="/MyApp4/app/groups">Groups</a></li>
-				<li><a href="/MyApp4/app/users">Users</a></li>
+				<li><a href=<%=CoRePlatformConstants.PROJECT_PATH+"/topics"%>>Topics</a></li>
+				<li><a href=<%=CoRePlatformConstants.PROJECT_PATH+"/groups"%>>Groups</a></li>
+				<li><a href=<%=CoRePlatformConstants.PROJECT_PATH+"/users"%>>Users</a></li>
 			</ul>
 
 			<%

@@ -1,5 +1,9 @@
 package com.tutorialspoint;
 
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.app.entities.Group;
 import org.app.entities.Tag;
 import org.app.entities.Topic;
@@ -18,15 +22,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
- 
 @Controller
 public class TopicController {
 
-	private String admin="burceacatalin";
-	
 	@RequestMapping(value = "/app/getTags", method = RequestMethod.GET)
 	public @ResponseBody
 	String getTags() throws JSONException {
@@ -35,7 +33,7 @@ public class TopicController {
 		JSONArray ja = new JSONArray();
 		TopicService ts = new TopicService();
 		List<Tag> tags = ts.getTags();
-		for(Tag tag: tags){
+		for (Tag tag : tags) {
 			obj = new JSONObject();
 			obj.put("id", tag.getId());
 			obj.put("title", tag.getTitle());
@@ -44,107 +42,96 @@ public class TopicController {
 		return ja.toString();
 
 	}
-	
+
 	private void getTopics(ModelMap model, HttpServletRequest request, Integer groupId) {
-		
+
 		TopicService topicService = new TopicService();
 		List<Topic> topics = null;
-		String groupParameter="";
-		User user = (User)request.getSession().getAttribute("user");
-		model.addAttribute("user",user);
-        if(user!=null && this.admin.equals(user.getUsername())==true){
-     	   model.addAttribute("admin",this.admin);
-        }
-		String modal="createTopicModal";
-		if(user==null){
-			modal="notLoggedInModal";
+		String groupParameter = "";
+		User user = (User) request.getSession().getAttribute("user");
+		model.addAttribute("user", user);
+		if (user != null && CoRePlatformConstants.ADMIN.equals(user.getUsername()) == true) {
+			model.addAttribute("admin", CoRePlatformConstants.ADMIN);
 		}
+		String modal = (user == null) ? "notLoggedInModal" : "createTopicModal";
+
 		UserGroup ug = null;
 		model.addAttribute("modal", modal);
-		if(groupId != null){
-			topics  = topicService.getTopicsByGroupId(groupId);
-			groupParameter="&groupId="+groupId;
+		if (groupId != null) {
+			topics = topicService.getTopicsByGroupId(groupId);
+			groupParameter = "&groupId=" + groupId;
 			GroupService gs = new GroupService();
 			Group group = gs.getGroupById(groupId);
-			boolean isOwner = gs.isOwner(user,group);
+			boolean isOwner = gs.isOwner(user, group);
 			List<UserGroup> groupMembers = gs.getGroupMembers(group);
 			ug = gs.getUserGroup(user, group);
 			model.addAttribute("isOwner", isOwner);
 			model.addAttribute("groupMembers", groupMembers);
-		}else{
+		} else {
 			topics = topicService.getTopics();
 		}
 		model.addAttribute("topics", topics);
-		model.addAttribute("groupId",groupId);
+		model.addAttribute("groupId", groupId);
 		model.addAttribute("groupParameter", groupParameter);
 		model.addAttribute("usergroup", ug);
 		model.addAttribute("projectPath", CoRePlatformConstants.PROJECT_PATH);
 
 	}
-	
+
 	@RequestMapping(value = "/app/topics", method = RequestMethod.GET)
 	public String getPublicTopics(ModelMap model, HttpServletRequest request) {
 
-		getTopics(model,request,null);
+		getTopics(model, request, null);
 		return "topics";
 
 	}
-	
+
 	@RequestMapping(value = "/app/topics/group/{groupId}", method = RequestMethod.GET)
-	public String getTopicsByGroupId(ModelMap model, HttpServletRequest request, @PathVariable (value="groupId") Integer groupId) {
+	public String getTopicsByGroupId(ModelMap model, HttpServletRequest request, @PathVariable(value = "groupId") Integer groupId) {
 
-		this.getTopics(model,request,groupId);
+		this.getTopics(model, request, groupId);
 		return "topics";
 
 	}
-	
+
 	@RequestMapping(value = "/app/deleteTopic", method = RequestMethod.POST)
-	public
-	String deleteTopic(@RequestParam(value="topicId", required = false) Integer topicId,
-			@RequestParam(value="groupId", required = false) Integer groupId){
+	public String deleteTopic(@RequestParam(value = "topicId", required = false) Integer topicId, @RequestParam(value = "groupId", required = false) Integer groupId) {
+
+		TopicService ts = new TopicService();
+		ts.deleteTopic(topicId);
+		String groupParameter = groupId != null ? "/group/" + groupId : "";
 		
-		 TopicService ts = new TopicService();
-		 ts.deleteTopic(topicId);
-		 String groupParameter=groupId != null ? "/group/"+groupId : "";
-		 return "redirect:"+CoRePlatformConstants.APP+"/topics"+groupParameter;
+		return "redirect:" + CoRePlatformConstants.APP + "/topics" + groupParameter;
 
 	}
-	
+
 	@RequestMapping(value = "/app/insertTopic", method = RequestMethod.POST)
 	public @ResponseBody
 	String insertTopic(@RequestParam(value = "createTopicTitle", required = false) String topicTitle,
-			@RequestParam(value = "createTopicDescription", required = false) String topicDescription,
-			@RequestParam(value = "createTopicCode", required = false) String topicCode,
-			@RequestParam(value = "tagId", required = false) Integer tagId,
-			@RequestParam(value = "groupId", required = false) Integer groupId,
-			HttpServletRequest request) {
-		TopicService ts =  new TopicService();
-		GroupService gs =  new GroupService();
-		Group group = null;
-		if(groupId!=null){
-			group = gs.getGroupById(groupId);
-		}
+			@RequestParam(value = "createTopicDescription", required = false) String topicDescription, @RequestParam(value = "createTopicCode", required = false) String topicCode,
+			@RequestParam(value = "tagId", required = false) Integer tagId, @RequestParam(value = "groupId", required = false) Integer groupId, HttpServletRequest request) {
 
+		TopicService ts = new TopicService();
+		GroupService gs = new GroupService();
+		Group group = (groupId != null) ? gs.getGroupById(groupId) : null;
 		Tag tag = ts.getTagById(tagId);
-		User user=(User) request.getSession().getAttribute("user");
+		User user = (User) request.getSession().getAttribute("user");
 		ts.insertTopic(tag, group, user, topicTitle, topicDescription, topicCode);
+		
 		return "ok";
 	}
-	
+
 	@RequestMapping(value = "/app/updateTopic", method = RequestMethod.POST)
 	public @ResponseBody
 	String updateTopic(@RequestParam(value = "topicTitle", required = false) String topicTitle,
-			@RequestParam(value = "topicDescription", required = false) String topicDescription,
-			@RequestParam(value = "topicCode", required = false) String topicCode,
-			@RequestParam(value = "tagId", required = false) Integer tagId,
-			@RequestParam(value = "groupId", required = false) Integer groupId,
+			@RequestParam(value = "topicDescription", required = false) String topicDescription, @RequestParam(value = "topicCode", required = false) String topicCode,
+			@RequestParam(value = "tagId", required = false) Integer tagId, @RequestParam(value = "groupId", required = false) Integer groupId,
 			@RequestParam(value = "topicId", required = false) Integer topicId) {
-		
-		TopicService ts =  new TopicService();
-		GroupService gs =  new GroupService();
+
+		TopicService ts = new TopicService();
 		Tag tag = ts.getTagById(tagId);
 		ts.updateTopic(topicId, tag, topicTitle, topicDescription, topicCode);
-		
+
 		return "ok";
 	}
 }

@@ -75,10 +75,7 @@ $(document).ready(function(){
 	});
 	
 	window.isValidTopic = function(name, description, code){
-		if(name == '' || description=='' || code==''){
-			return false;
-		}
-		return true;
+		return !(name == '' || description=='' || code=='');
 	}
 	
 	//--------------file upload..................
@@ -92,10 +89,6 @@ $(document).ready(function(){
 	    	////alert("file error");
 	    }
 	});
-	
-
-	
-
 });
 
 </script>

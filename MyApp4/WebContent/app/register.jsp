@@ -54,8 +54,6 @@
                             </div>
                            	<div>Already have an account?<a href="login.jsp" class="no-bottom-line"> Sign in here</a></div>
 
-
-
                     <button class="btn btn-info btn-block login" type="submit">Register</button>
                 </form>
             </div>

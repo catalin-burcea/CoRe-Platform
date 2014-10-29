@@ -10,7 +10,6 @@
 $(function () {
 
     $('[data-toggle="tooltip"]').tooltip();
-    
     $('[data-command="toggle-search"]').on('click', function(event) {
         event.preventDefault();
         $(this).toggleClass('hide-search');

@@ -17,7 +17,6 @@
 	$(function() {
 
 		$('[data-toggle="tooltip"]').tooltip();
-
 		$('[data-command="toggle-search"]').on('click', function(event) {
 			event.preventDefault();
 			$(this).toggleClass('hide-search');
@@ -29,7 +28,7 @@
 			}
 		});
 
-		/* $('#contact-list').searchable({
+/* 		$('#contact-list').searchable({
 		    searchField: '#contact-list-search',
 		    selector: 'li',
 		    childSelector: '#topic-item',
@@ -39,7 +38,7 @@
 		    hide: function( elem ) {
 		        elem.slideUp( 100 );
 		    }
-		}); */
+		});  */
 	});
 </script>
 <style type="text/css">

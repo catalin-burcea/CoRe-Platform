@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.List;
 
 import org.app.entities.Group;
-import org.app.entities.Topic;
 import org.app.entities.User;
 import org.app.entities.UserGroup;
 import org.app.entities.UserGroupId;
@@ -88,6 +87,7 @@ public class GroupService {
         }
     }
 	
+	@SuppressWarnings("unchecked")
 	public List<UserGroup> getOwnerGroups(User user){
 		 List<UserGroup> list = new ArrayList<UserGroup>();
 	        Session session = HibernateUtil.openSession();
@@ -139,6 +139,7 @@ public class GroupService {
             return true;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<Group> getAllGroups(){
 		 List<Group> list = new ArrayList<Group>();
 	        Session session = HibernateUtil.openSession();
@@ -163,6 +164,7 @@ public class GroupService {
 	
 	
 	
+	@SuppressWarnings("unchecked")
 	public List<UserGroup> getMemberGroups(User user){
 		 List<UserGroup> list = new ArrayList<UserGroup>();
 	        Session session = HibernateUtil.openSession();
@@ -187,6 +189,7 @@ public class GroupService {
 	        return list;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<User> getUsers(User user){
 		 List<User> list = new ArrayList<User>();
 	        Session session = HibernateUtil.openSession();
@@ -210,6 +213,7 @@ public class GroupService {
 	        return list;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<User> getUsers(){
 		 List<User> list = new ArrayList<User>();
 	        Session session = HibernateUtil.openSession();
@@ -278,6 +282,7 @@ public class GroupService {
 	        return user;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<UserGroup> getGroupMembers(Group group){
 		 List<UserGroup> list = new ArrayList<UserGroup>();
 	        Session session = HibernateUtil.openSession();
