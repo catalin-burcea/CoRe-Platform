@@ -25,8 +25,7 @@ $(document).ready(function(){
 	        success: function(tags){
 					handleTags(tags);
 	        },
-	        error:function(msg,er,t){
-	        	
+	        error:function(msg,er,t) {
 	        	//alert(msg+er+t);
 	        } 
 	    });
@@ -34,11 +33,10 @@ $(document).ready(function(){
 	
     window.getTopicById = function(topicId, handleTopic){
         $.ajax({
-            url: path+"/app/getTopicById",
+            url: path+"/app/getTopicById/"+topicId,
             type: "GET",
             contentType: 'application/json; charset=utf-8',
             dataType: "json",
-            data: "topicId="+topicId,
             success: function(data){
             	handleTopic(data);
             },
@@ -61,8 +59,7 @@ $(document).ready(function(){
         	});
 		});
 		
-		topicId =$(this).children().first().val();
-		
+		topicId = $(this).children().first().val();
 		getTopicById(topicId, function(data){
 	
 			updateTopicEditor.setValue(data["code"]);
@@ -91,7 +88,7 @@ $(document).ready(function(){
 				"topicId":topicId
 			},
 			success : function(data) {
-				window.location = "topics"+groupParameter;
+				window.location = projectPath+"/topics"+groupParameter;
 			},
 			error : function(msg, er, t) {
 				//alert(msg + er + t);
@@ -104,14 +101,10 @@ $(document).ready(function(){
 		var topicDescription = $("#editTopicDescription").val();
 		var topicTitle = $("#editTopicTitle").val();
 		if(isValidTopic(topicTitle,topicDescription,topicCode)==true){
-			var groupId = GetURLParameter("groupId");
-			var groupParameter="";
-			if(groupId!=null){
-				groupParameter="?groupId="+groupId;
-			}
-	
-			updateTopic(topicTitle, topicDescription, topicCode,language.id,
-					groupId, groupParameter,topicId);
+			
+			var groupId = GetURLParameter("group");
+			var groupParameter = groupId != null ? "/group/"+groupId : "";
+			updateTopic(topicTitle, topicDescription, topicCode,language.id,groupId, groupParameter,topicId);
 			
 		}else{
 			$("#editTopicError").show().text("Title, description and code fields must be filled!");

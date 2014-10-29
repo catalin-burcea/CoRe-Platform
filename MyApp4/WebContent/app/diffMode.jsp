@@ -28,11 +28,10 @@
 	
 	  window.getTopicById = function(topicId, handleTopic){
 	        $.ajax({
-	            url: path+"/app/getTopicById",
+	            url: path+"/app/getTopicById/"+topicId,
 	            type: "GET",
 	            contentType: 'application/json; charset=utf-8',
 	            dataType: "json",
-	            data: "topicId="+topicId,
 	            success: function(topic){
 	            	handleTopic(topic);
 	            },
@@ -45,9 +44,9 @@
 	    }
 	    
 	    window.setBackButtonURL = function(){
-	    	var topicId = GetURLParameter("topicId");
+	    	var topicId = getRequestParameter("topicId");
 	    	getTopicById(topicId, function(topic){
-	    		$("#backButton").attr('href','viewTopic?topicId='+topicId+'&groupId='+topic["groupId"]);
+	    		$("#backButton").attr('href',projectPath+'/viewTopic/topic/'+topicId+'/group/'+topic["groupId"]);
 	    	});
 	    }
 	    
@@ -88,8 +87,8 @@
 		}
 	    
 	    $(document).ready(function(){
-	    	var topicId = GetURLParameter("topicId");
-	    	var reviewId = GetURLParameter("reviewId");
+	    	var topicId = getRequestParameter("topicId");
+	    	var reviewId = getRequestParameter("reviewId");
 	    	var topicCode = null;
 	    	var reviewCode = null;
 	    	setBackButtonURL();

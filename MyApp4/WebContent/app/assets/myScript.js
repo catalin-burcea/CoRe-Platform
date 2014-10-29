@@ -1,16 +1,27 @@
 	//----
 	function GetURLParameter(sParam){
-		    var sPageURL = window.location.search.substring(1);
-		    var sURLVariables = sPageURL.split('&');
-		    for (var i = 0; i < sURLVariables.length; i++) 
-		    {
-		        var sParameterName = sURLVariables[i].split('=');
-		        if (sParameterName[0] == sParam) 
-		        {
-		            return sParameterName[1];
-		        }
-		    }
-	        return null;
+	    var sURLVariables = window.location.href.split('/');
+	    
+	    for (var i = 0; i < sURLVariables.length; i++) {
+	        if (sURLVariables[i] == sParam) 
+	        {
+	            return sURLVariables[i+1];
+	        }
+	    }
+        return null;
+	}
+	
+	function getRequestParameter(sParam){
+	    var sPageURL = window.location.search.substring(1);
+	    var sURLVariables = sPageURL.split('&');
+	    for (var i = 0; i < sURLVariables.length; i++) {
+	        var sParameterName = sURLVariables[i].split('=');
+	        if (sParameterName[0] == sParam) 
+	        {
+	            return sParameterName[1];
+	        }
+	    }
+        return null;
 	}
 	
 	//--------get online users---------

@@ -38,28 +38,27 @@
     
     
     $(function(){		 
-		var topicId=GetURLParameter("topicId");
+		var topicId=GetURLParameter("topic");
         getTopicById(topicId);
         getTopicComments(topicId);
     });
     
     window.setSearchParameters = function(){
-    	var topicId = GetURLParameter("topicId");
-    	var groupId = GetURLParameter("groupId");
+    	var topicId = GetURLParameter("topic");
+    	var groupId = GetURLParameter("group");
     	if(Reviews.length>0){
     		var reviewId = Reviews[next];
-        	var diffModeURL = "diffMode.jsp?topicId="+topicId+"&reviewId="+reviewId;
+        	var diffModeURL = projectPath+"/diffMode.jsp?topicId="+topicId+"&reviewId="+reviewId;
         	$("#diffModeURL").attr('href',diffModeURL);
     	}
     }
     
     window.getTopicById = function(topicId){
         $.ajax({
-            url: path+"/app/getTopicById",
+            url: path+"/app/getTopicById/"+topicId,
             type: "GET",
             contentType: 'application/json; charset=utf-8',
             dataType: "json",
-            data: "topicId="+topicId,
             success: function(data){
             	Reviews = data["ids"].replace('[','').replace(']','').split(",").map(Number);
             	language = data["language"];
@@ -77,7 +76,7 @@
             },
             error:function(msg,er,t){
             	$("#errorMessage").show();
-              	$("#errorMessage h1 strong").text("No topic was found!");
+              	$("#errorMessage h1 strong").text("No topics were found!");
               	$(".removeAll").text("");
             } 
         });
@@ -93,13 +92,13 @@
             data: "topicId="+topicId,
             success: function(comments){
             	getAdmin(function(admin, groupAdmin){
-            		var topicId=GetURLParameter("topicId");
-            		var groupId=GetURLParameter("groupId");
+            		var topicId=GetURLParameter("topic");
+            		var groupId=GetURLParameter("group");
             		comments.forEach( function( item ) {
                     	var trash="";
                 		if((admin != null && admin!='')||(groupAdmin!=null && groupAdmin!='')){
 
-                			trash='<form  role="form" method="POST" action="deleteComment">'	
+                			trash='<form  role="form" method="POST" action="'+projectPath+'/deleteComment">'	
         						+'<button type="submit" class="btn btn-danger glyphicon glyphicon-trash pull-right" ></button>'					
         						+'<input type="hidden" name="commentId" value="'+item.id+'">'
         						+'<input type="hidden" name="topicId" value="'+topicId+'">'
@@ -144,7 +143,7 @@
     }
     
 	window.getAdmin = function(handleAdmin){
-		var groupId = GetURLParameter("groupId");
+		var groupId = GetURLParameter("group");
     	$.ajax({
             url: path+"/app/getAdmin",
             type: "GET",
@@ -172,12 +171,12 @@
             success: function(comments){
             	$("#wallmessages[name='reviewWallMessages']").text("");
             	getAdmin(function(admin, groupAdmin){
-            		var topicId=GetURLParameter("topicId");
-            		var groupId=GetURLParameter("groupId");
+            		var topicId=GetURLParameter("topic");
+            		var groupId=GetURLParameter("group");
             		comments.forEach( function( item ) {
                     	var trash="";
                 		if((admin != null && admin!='')||(groupAdmin!=null && groupAdmin!='')){
-                			trash='<form  role="form" method="POST" action="deleteComment">'	
+                			trash='<form  role="form" method="POST" action="'+projectPath+'/deleteComment">'	
         						+'<button type="submit" class="btn btn-danger glyphicon glyphicon-trash pull-right" ></button>'					
         						+'<input type="hidden" name="commentId" value="'+item.id+'">'
         						+'<input type="hidden" name="topicId" value="'+topicId+'">'
@@ -231,8 +230,8 @@
 				getAdmin(function(admin, groupAdmin){
             		if((admin != null && admin!='')||(groupAdmin!=null && groupAdmin!='')){
 
-						var topicId=GetURLParameter("topicId");
-						var groupId=GetURLParameter("groupId");
+						var topicId=GetURLParameter("topic");
+						var groupId=GetURLParameter("group");
 						$("#deleteReviewForm").show();
 						$("[name=reviewId]").val(data["id"]);
 						$("[name=topicId]").val(topicId);
@@ -341,8 +340,8 @@
 		    $("#next").click(function(){
 		    	
 				getReview(function(data){
-					var topicId=GetURLParameter("topicId");
-					var groupId=GetURLParameter("groupId");
+					var topicId=GetURLParameter("topic");
+					var groupId=GetURLParameter("group");
 					$("[name=reviewId]").val(data["id"]);
 					$("[name=topicId]").val(topicId);
 					$("[name=groupId]").val(groupId);
@@ -364,11 +363,11 @@
 		    	isLoggedIn(function(logged){
 					if(logged=="true"){
 						var postTopicComment = $("#topicComment").val();
-				    	var topicId=GetURLParameter("topicId");
-				    	var groupId=GetURLParameter("groupId");
+				    	var topicId=GetURLParameter("topic");
+				    	var groupId=GetURLParameter("group");
 				    	var groupParameter = "";
 				    	if(groupId!=null){
-				    		groupParameter="&groupId="+groupId;
+				    		groupParameter="/group/"+groupId;
 				    	}
 				    	$.ajax({
 							url : path+"/app/insertTopicComment",
@@ -378,7 +377,7 @@
 								"topicId" : topicId
 							},
 							success : function(data) {
-								window.location = "viewTopic?topicId=" + topicId+groupParameter;
+								window.location = projectPath+"/viewTopic/topic/" + topicId+groupParameter;
 							},
 							error : function(msg, er, t) {
 								//alert(msg + er + t);
@@ -397,11 +396,11 @@
 					if(logged=="true"){
 				    	var postReviewComment = $("#reviewComment").val();
 				    	var reviewId=Reviews[next];
-				    	var topicId=GetURLParameter("topicId");
-				    	var groupId=GetURLParameter("groupId");
+				    	var topicId=GetURLParameter("topic");
+				    	var groupId=GetURLParameter("group");
 				    	var groupParameter = "";
 				    	if(groupId!=null){
-				    		groupParameter="&groupId="+groupId;
+				    		groupParameter="/group/"+groupId;
 				    	}
 				    	$.ajax({
 							url : path+"/app/insertReviewComment",
@@ -411,7 +410,7 @@
 								"reviewId" : reviewId
 							},
 							success : function(data) {
-								window.location = "viewTopic?topicId=" + topicId + groupParameter;
+								window.location = projectPath+"/viewTopic/topic/" + topicId+groupParameter;
 							},
 							error : function(msg, er, t) {
 								//alert(msg + er + t);
@@ -425,12 +424,9 @@
 		    });
       });
     
-   
-   
-    
-    </script>
-    
-    <script>
+</script>
+
+<script>
     $( document ).ready(function() {
         
     	  $('#stars').on('starrr:change', function(e, value){
@@ -478,9 +474,9 @@
     	  }
     });
     
-    </script>
+</script>
     
-    <style type="text/css">
+<style type="text/css">
     
     
     .back-to-top {
@@ -494,6 +490,7 @@
     
     <script type="text/javascript">
     $(document).ready(function(){
+    	
        	   $(window).scroll(function () {
                if ($(this).scrollTop() > 50) {
                    $('#back-to-top').fadeIn();
@@ -501,7 +498,6 @@
                    $('#back-to-top').fadeOut();
                }
            });
-           // scroll body to 0px on click
            $('#back-to-top').click(function () {
                $('#back-to-top').tooltip('hide');
                $('body,html').animate({
@@ -608,8 +604,8 @@
 				 		 
 					    <div class="panel panel-primary">
 							  <div class="panel-heading">
-									<form id="deleteReviewForm" role="form" method="POST" action="deleteReview" class="pull-right" style="display:none">	
-										<button type="submit" class="btn btn-danger glyphicon glyphicon-trash"></button>
+									<form id="deleteReviewForm" role="form" method="POST" action="${projectPath}/deleteReview" class="pull-right" style="display:none">	
+										<button type="button"  onClick="this.form.submit();" class="btn btn-danger glyphicon glyphicon-trash"></button>
 										<input type="hidden" name="topicId" value="">
 										<input type="hidden" name="reviewId" value="">
 										<input type="hidden" name="groupId" value="">

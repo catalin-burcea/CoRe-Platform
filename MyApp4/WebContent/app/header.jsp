@@ -1,3 +1,4 @@
+<%@page import="com.tutorialspoint.CoRePlatformConstants"%>
 <%@page import="org.app.entities.User"%>
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 	<div class="container-fluid">
@@ -16,9 +17,9 @@
 		<div class="collapse navbar-collapse"
 			id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<li><a href="topics">Topics</a></li>
-				<li><a href="groups">Groups</a></li>
-				<li><a href="users">Users</a></li>
+				<li><a href="/MyApp4/app/topics">Topics</a></li>
+				<li><a href="/MyApp4/app/groups">Groups</a></li>
+				<li><a href="/MyApp4/app/users">Users</a></li>
 			</ul>
 
 			<%
@@ -28,15 +29,15 @@
 
 			<ul class="nav navbar-nav navbar-right">
 					<li><a href="#"><span class="glyphicon glyphicon-user"></span> Welcome, <%=user.getLastName()+" "+user.getFirstName()%></a></li>
-					<li><a href="logout.jsp"><i class="glyphicon glyphicon-off"></i> Logout</a></li>
+					<li><a href=<%=CoRePlatformConstants.PROJECT_PATH+"/logout.jsp"%>><i class="glyphicon glyphicon-off"></i> Logout</a></li>
 			</ul>
 
 			<%
 				} else {
 			%>
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="login.jsp">Login</a></li>
-				<li><a href="register.jsp">Register</a></li>
+				<li><a href="<%=CoRePlatformConstants.PROJECT_PATH+"/login.jsp"%>">Login</a></li>
+				<li><a href="<%=CoRePlatformConstants.PROJECT_PATH+"/register.jsp"%>">Register</a></li>
 			</ul>
 			<%
 				}

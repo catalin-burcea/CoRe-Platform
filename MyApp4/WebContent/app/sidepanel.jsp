@@ -1,9 +1,6 @@
 
-<%@page import="org.app.service.GroupService"%>
-<%@page import="org.app.entities.Group"%>
-<%@page import="org.app.entities.User"%>
-<%@page import="org.app.entities.UserGroup"%>
-<%@page import="java.util.List"%>
+
+<%@ include file="head.jsp"%>
 <script>
 
 $(function () {
@@ -280,41 +277,39 @@ $(function () {
 	#posts.open { left: 0px; }
 	</style>
 	   
-	<% 
-		User currentUser=(User) request.getSession().getAttribute("user");
-		GroupService gs = new GroupService();
-		
-		Integer gId = Integer.parseInt(request.getParameter("groupId"));
-		Group group  = gs.getGroupById(gId);
-		boolean isOwner = gs.isOwner(currentUser,group);
-		List<UserGroup> groupMembers = gs.getGroupMembers(group);
-	%>
-	<div id="posts" class="col-xs-11 col-sm-4 col-md-3">
-		<%for(UserGroup ug:groupMembers){ %>
+
+<div id="posts" class="col-xs-11 col-sm-4 col-md-3">
+	<%-- 	<%for(UserGroup ug:groupMembers){ %> --%>
+		<c:forEach items="${groupMembers}" var="ug">
 		<a>
 			<div class="well span6">
-				<%if (ug.getOwnership().equals("yes")==true){ %>
-					<span class="label label-primary">Owner</span>					
-				<%}else if(isOwner==true){ %>
-						
-					<form action="removeUserFromGroup" method="post">			
-						<button type="submit" class="btn btn-danger glyphicon glyphicon-remove pull-right" data-toggle="tooltip" data-placement="top" title="Remove from group"></button>
-						<input type="hidden" name="userId" value="<%=ug.getUser().getId()%>">
-						<input type="hidden" name="groupId" value="<%=ug.getGroup().getId()%>">
-					</form>
-				<%} %>
-					<span id="online-user<%=ug.getUser().getId()%>" class="label label-success online-user" style="display:none">online</span>
-					<span id="offline-user<%=ug.getUser().getId()%>" class="label label-warning offline-user" style="display:none">offline</span>
+<%-- 				<%if (ug.getOwnership().equals("yes")==true){ %>
+ --%>				<c:choose>
+						 <c:when test="${ug.getOwnership().equals('yes') == true}">
+								<span class="label label-primary">Owner</span>					
+			<%-- 				<%}else if(isOwner==true){ %>
+	 --%>				</c:when>
+						<c:when test="${isOwner==true}">
+								<form action="${ projectPath }/removeUserFromGroup" method="post">			
+									<button type="submit" class="btn btn-danger glyphicon glyphicon-remove pull-right" data-toggle="tooltip" data-placement="top" title="Remove from group"></button>
+									<input type="hidden" name="userId" value="${ug.getUser().getId()}">
+									<input type="hidden" name="groupId" value="${ug.getGroup().getId()}">
+								</form>
+						</c:when>
+				</c:choose>
+<%-- 				<%} %>
+ --%>					<span id="online-user${ug.getUser().getId()}" class="label label-success online-user" style="display:none">online</span>
+					<span id="offline-user${ug.getUser().getId()}" class="label label-warning offline-user" style="display:none">offline</span>
 
 			        <div class="span8">
-			            <h3><span class="glyphicon glyphicon-user"></span><%= ug.getUser().getLastName()+" "+ug.getUser().getFirstName()%></h3>
+			            <h3><span class="glyphicon glyphicon-user"></span>${ug.getUser().getLastName()} ${ug.getUser().getFirstName()}</h3>
 			        </div>
 			</div>
 			
 		</a>
-		<%} %>
+		</c:forEach>
 		
-	</div>
+	</div> 
 
 	<div id="toggle_posts">
 		<h1>

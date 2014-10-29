@@ -18,7 +18,7 @@
 			},
 
 			success : function(data) {
-				window.location = "viewTopic?topicId=" + topicId + groupParameter;
+				window.location = projectPath+"/viewTopic/topic/" + topicId + groupParameter;
 			},
 			error : function(msg, er, t) {
 				//alert(msg + er + t);
@@ -36,11 +36,11 @@
 			var reviewCode = answerEditor.getValue();
 			var reviewDescription = $("#postAnswerDescription").val();
 			if(isValidReview(reviewDescription, reviewCode)==true){
-				var topicId = GetURLParameter("topicId");
-				var groupId = GetURLParameter("groupId");		
+				var topicId = GetURLParameter("topic");
+				var groupId = GetURLParameter("group");		
 				var groupParameter = "";
 				if(groupId!=null){
-					groupParameter = "&groupId="+groupId;
+					groupParameter = "/group/"+groupId;
 				}
 				insertReview(reviewCode, reviewDescription, topicId, groupParameter);
 			}else{

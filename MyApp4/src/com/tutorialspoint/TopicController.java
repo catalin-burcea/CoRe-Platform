@@ -12,6 +12,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -44,16 +45,15 @@ public class TopicController {
 
 	}
 	
-	@RequestMapping(value = "/app/topics", method = RequestMethod.GET)
-	public String getTopics(ModelMap model, HttpServletRequest request){
-
+	private void getTopics(ModelMap model, HttpServletRequest request, Integer groupId) {
+		
 		TopicService topicService = new TopicService();
 		List<Topic> topics = null;
 		String groupParameter="";
 		User user = (User)request.getSession().getAttribute("user");
 		model.addAttribute("user",user);
-        if(user!=null && admin.equals(user.getUsername())==true){
-     	   model.addAttribute("admin",admin);
+        if(user!=null && this.admin.equals(user.getUsername())==true){
+     	   model.addAttribute("admin",this.admin);
         }
 		String modal="createTopicModal";
 		if(user==null){
@@ -61,21 +61,39 @@ public class TopicController {
 		}
 		UserGroup ug = null;
 		model.addAttribute("modal", modal);
-		if(request.getParameter("groupId")!=null){
-			Integer groupId  = Integer.parseInt(request.getParameter("groupId"));
+		if(groupId != null){
 			topics  = topicService.getTopicsByGroupId(groupId);
 			groupParameter="&groupId="+groupId;
 			GroupService gs = new GroupService();
 			Group group = gs.getGroupById(groupId);
+			boolean isOwner = gs.isOwner(user,group);
+			List<UserGroup> groupMembers = gs.getGroupMembers(group);
 			ug = gs.getUserGroup(user, group);
+			model.addAttribute("isOwner", isOwner);
+			model.addAttribute("groupMembers", groupMembers);
 		}else{
 			topics = topicService.getTopics();
 		}
-		model.addAttribute("usergroup", ug);
 		model.addAttribute("topics", topics);
+		model.addAttribute("groupId",groupId);
 		model.addAttribute("groupParameter", groupParameter);
-		model.addAttribute("groupId",request.getParameter("groupId"));
-		
+		model.addAttribute("usergroup", ug);
+		model.addAttribute("projectPath", CoRePlatformConstants.PROJECT_PATH);
+
+	}
+	
+	@RequestMapping(value = "/app/topics", method = RequestMethod.GET)
+	public String getPublicTopics(ModelMap model, HttpServletRequest request) {
+
+		getTopics(model,request,null);
+		return "topics";
+
+	}
+	
+	@RequestMapping(value = "/app/topics/group/{groupId}", method = RequestMethod.GET)
+	public String getTopicsByGroupId(ModelMap model, HttpServletRequest request, @PathVariable (value="groupId") Integer groupId) {
+
+		this.getTopics(model,request,groupId);
 		return "topics";
 
 	}
@@ -87,11 +105,8 @@ public class TopicController {
 		
 		 TopicService ts = new TopicService();
 		 ts.deleteTopic(topicId);
-		 String groupParameter="";
-		 if(groupId!=null){
-			 groupParameter="?groupId="+groupId;
-		 }
-		 return "redirect:/app/topics"+groupParameter;
+		 String groupParameter=groupId != null ? "/group/"+groupId : "";
+		 return "redirect:"+CoRePlatformConstants.APP+"/topics"+groupParameter;
 
 	}
 	

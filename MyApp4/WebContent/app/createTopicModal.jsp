@@ -46,7 +46,7 @@ $(document).ready(function(){
 				"groupId":groupId
 			},
 			success : function(data) {
-				window.location = "topics"+groupParameter;
+				window.location = projectPath+"/topics"+groupParameter;
 			},
 			error : function(msg, er, t) {
 				//alert(msg + er + t);
@@ -61,10 +61,10 @@ $(document).ready(function(){
 		var createTopicDescription = $("#createTopicDescription").val();
 		var createTopicTitle = $("#createTopicTitle").val();
 		if(isValidTopic(createTopicTitle,createTopicDescription,createTopicCode)==true){
-			var groupId = GetURLParameter("groupId");
+			var groupId = GetURLParameter("group");
 			var groupParameter="";
 			if(groupId!=null){
-				groupParameter="?groupId="+groupId;
+				groupParameter="/group/"+groupId;
 			}
 			insertTopic(createTopicTitle,createTopicDescription,createTopicCode,language.id,
 					groupId, groupParameter);

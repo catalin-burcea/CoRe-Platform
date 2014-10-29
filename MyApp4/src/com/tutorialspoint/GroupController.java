@@ -52,7 +52,7 @@ public class GroupController {
 		Group group = gs.getGroupById(groupId);
 		User user = gs.getUserById(userId);
 		gs.removeUserFromGroup(user, group);
-		return "redirect:/app/topics?groupId="+groupId;
+		return "redirect:"+CoRePlatformConstants.APP+"/topics/group/"+groupId;
 
 	}
 	

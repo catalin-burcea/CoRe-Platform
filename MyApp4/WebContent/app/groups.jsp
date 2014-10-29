@@ -86,7 +86,7 @@
 			                    	<c:forEach items="${allGroups}" var="group">
 			                        <li class="list-group-item">
 			                               
-			                            <a href="topics?groupId=${group.getId()}">${group.getName()}</a>
+			                            <a href="topics/group/${group.getId()}">${group.getName()}</a>
 			                  
 			                            <div class="pull-right action-buttons">
 			           						<form  role="form" method="POST" action="deleteGroup">	
@@ -146,7 +146,7 @@
 						                    <ul class="list-group">
 						                    	<c:forEach items="${ownerGroups}" var="group">
 						                        <li class="list-group-item">						                        
-						                            <a href="topics?groupId=${group.getGroup().getId()}">${group.getGroup().getName()}</a>
+						                            <a href="topics/group/${group.getGroup().getId()}">${group.getGroup().getName()}</a>
 						               
 						                            <div class="pull-right action-buttons">
 
@@ -176,16 +176,16 @@
 						                    <ul class="list-group">
 						                    	<c:forEach items="${memberGroups}" var="group">
 						                        <li class="list-group-item">
-						                            <a href="topics?groupId=${group.getGroup().getId()}">${group.getGroup().getName()}</a>
+						                            <a href="topics/group/${group.getGroup().getId()}">${group.getGroup().getName()}</a>
 						               
 						                        </li>
 						                        </c:forEach>	
 						                    </ul>
 						                </div>
 						            </div>
-			            </c:if>
-			            </div>
-			        </div>
+			            		</c:if>
+			            	</div>
+			       		</div>
 										<div class="col-md-2">
 						  					<button id="openCreateGroupModal" class="btn btn-primary" data-toggle="modal"
 											data-target="#createGroupModal">Create a group</button>
