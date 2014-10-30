@@ -269,9 +269,11 @@
    		 isLoggedIn(function(logged){
       		if(logged=="true"){
       			getUserReviewStars(Reviews[next],function(rating){
+      				
       				if(rating == 0){
       					$("#stars").show();
     	    	   		$("#rating").hide();
+
       				}else{
       					$("#stars").hide();
     	    	   		$('#count').html(rating);
@@ -418,10 +420,10 @@
 
 <script>
     $( document ).ready(function() {
-        
-    	  $('#stars').on('starrr:change', function(e, value){
-    		  	if(value!=null){
-			    	addStars(value,function(){
+
+    	  $('#stars').on('starrr:change', function(e, value) {
+    		  	if(value != null){
+			    	addStars(value,function() {
 				    	checkRating();
 				    	getReviewStars(function(stars){
 				    		$("#reviewStars").text(stars+"/5");
@@ -431,6 +433,7 @@
     	  });
     	  
     	  window.getUserReviewStars = function(reviewId, handle){
+
     		 	$.ajax({
     	            url: path+"/app/getUserReviewStars",
     	            type: "GET",
@@ -464,21 +467,7 @@
     	  }
     });
     
-</script>
-    
-<style type="text/css">
-    
-    
-    .back-to-top {
-    cursor: pointer;
-    position: fixed;
-    bottom: 30px;
-    right:30px;
-    display:none;
-}
-    </style>
-    
-    <script type="text/javascript">
+    //--------arrow--------------------------------
     $(document).ready(function(){
     	
        	   $(window).scroll(function () {
@@ -497,6 +486,18 @@
            });
    });
     </script>
+    
+    <style type="text/css">
+    
+    
+    .back-to-top {
+    cursor: pointer;
+    position: fixed;
+    bottom: 30px;
+    right:30px;
+    display:none;
+}
+    </style>
 </head>
 <body>
 
