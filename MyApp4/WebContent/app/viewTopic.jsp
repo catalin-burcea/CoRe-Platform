@@ -485,9 +485,9 @@
                return false;
            });
    });
-    </script>
+</script>
     
-    <style type="text/css">
+<style type="text/css">
     
     
     .back-to-top {
@@ -497,7 +497,7 @@
     right:30px;
     display:none;
 }
-    </style>
+</style>
 </head>
 <body>
 
