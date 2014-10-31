@@ -1,5 +1,3 @@
-
-
 <%@ include file="head.jsp"%>
 <script>
 
@@ -54,6 +52,7 @@ $(function () {
 		$(this).closest('#comments').removeClass('active');
 	});   
 });
+
 </script>
 
 

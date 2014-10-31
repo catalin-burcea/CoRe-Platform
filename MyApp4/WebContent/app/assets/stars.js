@@ -100,6 +100,7 @@ var __slice = [].slice;
 })(window.jQuery, window);
 
 $(function() {
-  return $(".starrr").starrr();
+	if($.fn.starrr) 
+		return $(".starrr").starrr();
 });
 

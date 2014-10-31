@@ -1,10 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@page import="org.app.service.TopicService"%>
-<%@page import="org.app.entities.Topic"%>
-<%@page import="org.app.entities.Test"%>
-<%@page import="org.hibernate.Hibernate"%>
-<%@page import="java.util.*"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -13,34 +8,8 @@
 <title>topics</title>
 
 <%@ include file="head.jsp"%>
-<script type="text/javascript">
-	$(function() {
+<script type="text/javascript"><%@ include file="assets/searchableList.js" %> </script>
 
-		$('[data-toggle="tooltip"]').tooltip();
-		$('[data-command="toggle-search"]').on('click', function(event) {
-			event.preventDefault();
-			$(this).toggleClass('hide-search');
-
-			if ($(this).hasClass('hide-search')) {
-				$('.c-search').closest('.row').slideUp(100);
-			} else {
-				$('.c-search').closest('.row').slideDown(100);
-			}
-		});
-
-/* 		$('#contact-list').searchable({
-		    searchField: '#contact-list-search',
-		    selector: 'li',
-		    childSelector: '#topic-item',
-		    show: function( elem ) {
-		        elem.slideDown(100);
-		    },
-		    hide: function( elem ) {
-		        elem.slideUp( 100 );
-		    }
-		});  */
-	});
-</script>
 <style type="text/css">
 .panel>.list-group .list-group-item:first-child {
 	/*border-top: 1px solid rgb(204, 204, 204);*/

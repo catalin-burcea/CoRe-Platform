@@ -6,36 +6,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>users</title>
 <%@ include file="head.jsp" %> 
-<script type="text/javascript">
-$(function () {
+<script type="text/javascript"><%@ include file="assets/searchableList.js" %> </script>
 
-    $('[data-toggle="tooltip"]').tooltip();
-    $('[data-command="toggle-search"]').on('click', function(event) {
-        event.preventDefault();
-        $(this).toggleClass('hide-search');
-        
-        if ($(this).hasClass('hide-search')) {        
-            $('.c-search').closest('.row').slideUp(100);
-        }else{   
-            $('.c-search').closest('.row').slideDown(100);
-        }
-    })
-    
-    $('#contact-list').searchable({
-        searchField: '#contact-list-search',
-        selector: 'li',
-        childSelector: '.col-xs-12',
-        show: function( elem ) {
-            elem.slideDown(100);
-        },
-        hide: function( elem ) {
-            elem.slideUp( 100 );
-        }
-    })
-});
-
-
-</script>
 <style type="text/css">
 
 @import url(//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css);

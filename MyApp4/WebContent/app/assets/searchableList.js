@@ -11,17 +11,20 @@ $(function () {
         }else{   
             $('.c-search').closest('.row').slideDown(100);
         }
-    })
+    });
     
-    $('#contact-list').searchable({
-        searchField: '#contact-list-search',
-        selector: 'li',
-        childSelector: '.col-xs-12',
-        show: function( elem ) {
-            elem.slideDown(100);
-        },
-        hide: function( elem ) {
-            elem.slideUp( 100 );
-        }
-    })
+    if($('#contact-list').length && $.fn.searchable){
+        $('#contact-list').searchable({
+            searchField: '#contact-list-search',
+            selector: 'li',
+            childSelector: '.col-xs-12',
+            show: function( elem ) {
+                elem.slideDown(100);
+            },
+            hide: function( elem ) {
+                elem.slideUp( 100 );
+            }
+        });
+    }
+
 });
