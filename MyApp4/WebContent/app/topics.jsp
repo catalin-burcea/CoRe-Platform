@@ -145,6 +145,18 @@ body {
 }
 </style>
 
+
+<style type="text/css">
+
+.topic-title-link{
+	color:#383838;
+}
+
+.topic-title-link: hover{
+	color:red;
+}
+
+</style>
 </head>
 <body>
 	<%@ include file="header.jsp"%>
@@ -248,37 +260,31 @@ body {
 																			class="img-rounded img-responsive">
 																	</div>
 																	<div class="col-xs-9 col-md-9 section-box">
-																		<h2>
+																		
 																			<c:choose>
-																				<c:when test="${topic.getTitle().length()>40}">
-																	   					 ${topic.getTitle().substring(0, 40)}...
+																				<c:when test="${topic.getTitle().length()>35}">
+																						<h1><a class="no-bottom-line topic-title-link"
+																						href="/MyApp4/app/viewTopic/topic/${topic.getId()}"><strong
+																						style=""> ${topic.getTitle().substring(0, 35)}... </strong></a>
+																	   					</h1>
 																	 				 </c:when>
 																				<c:otherwise>
-																	   					 ${topic.getTitle()}
-																	 				 </c:otherwise>
-																			</c:choose>
-																			<c:choose>
-																				<c:when test="${groupId != null}">
-																					<a class="no-bottom-line"
-																						href="/MyApp4/app/viewTopic/topic/${topic.getId()}/group/${groupId}"><strong
-																						style="">see post </strong> </a>
-																				</c:when>
-																				<c:otherwise>
-																					<a class="no-bottom-line"
+																						<h1><a class="no-bottom-line topic-title-link"
 																						href="/MyApp4/app/viewTopic/topic/${topic.getId()}"><strong
-																						style="">see post </strong></a>
-																				</c:otherwise>
+																						style=""> ${topic.getTitle()} </strong></a>
+																						</h1>
+																	   					 
+																	 			</c:otherwise>
 																			</c:choose>
 
-
-																		</h2>
+																		
 																		<c:choose>
 																			<c:when
 																				test="${topic.getDescription().length() > 100}">
-																   					 ${topic.getDescription().substring(0, 100)}...
+																   					<div> ${topic.getDescription().substring(0, 100)}...</div>
 																  				</c:when>
 																			<c:otherwise>
-																  					  ${topic.getDescription()}
+																  					  <div>${topic.getDescription()}</div>
 																  				</c:otherwise>
 																		</c:choose>
 																		<hr>
