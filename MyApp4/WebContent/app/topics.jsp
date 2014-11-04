@@ -148,15 +148,19 @@ body {
 
 <style type="text/css">
 
-.topic-title-link{
+.topic-title-link {
 	color:#383838;
 }
 
-.topic-title-link: hover{
-	color:red;
+.topic-title-link:hover {
+	background-color:#F0F0F0;
+	border-radius:5px;
+	color:#000000;
 }
 
 </style>
+
+
 </head>
 <body>
 	<%@ include file="header.jsp"%>
@@ -263,16 +267,16 @@ body {
 																		
 																			<c:choose>
 																				<c:when test="${topic.getTitle().length()>35}">
-																						<h1><a class="no-bottom-line topic-title-link"
+																						<a class="no-bottom-line "
 																						href="/MyApp4/app/viewTopic/topic/${topic.getId()}"><strong
-																						style=""> ${topic.getTitle().substring(0, 35)}... </strong></a>
-																	   					</h1>
+																						style=""> <h1 class="topic-title-link">${topic.getTitle().substring(0, 35)}...</h1> </strong></a>
+																	   					
 																	 				 </c:when>
 																				<c:otherwise>
-																						<h1><a class="no-bottom-line topic-title-link"
+																						<a class="no-bottom-line"
 																						href="/MyApp4/app/viewTopic/topic/${topic.getId()}"><strong
-																						style=""> ${topic.getTitle()} </strong></a>
-																						</h1>
+																						style=""> <h1 class="topic-title-link">${topic.getTitle()} </h1></strong></a>
+																						
 																	   					 
 																	 			</c:otherwise>
 																			</c:choose>

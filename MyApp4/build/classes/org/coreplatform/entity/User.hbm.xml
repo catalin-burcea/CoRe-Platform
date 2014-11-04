@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 3, 2014 5:42:39 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="org.coreplatform.entity.User" table="user" catalog="test">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="firstName" type="string">
+            <column name="firstName" length="45" />
+        </property>
+        <property name="lastName" type="string">
+            <column name="lastName" length="45" />
+        </property>
+        <property name="username" type="string">
+            <column name="username" length="45" not-null="true" />
+        </property>
+        <property name="email" type="string">
+            <column name="email" length="45" />
+        </property>
+        <property name="password" type="string">
+            <column name="password" length="45" not-null="true" />
+        </property>
+        <set name="userGroups" table="user_group" inverse="true" lazy="false" fetch="select">
+            <key>
+                <column name="idUser" not-null="true" />
+            </key>
+            <one-to-many class="org.coreplatform.entity.UserGroup" />
+        </set>
+        <set name="comments" table="comment" inverse="true" lazy="false" fetch="select">
+            <key>
+                <column name="userId" not-null="true" />
+            </key>
+            <one-to-many class="org.coreplatform.entity.Comment" />
+        </set>
+        <set name="reviews" table="review" inverse="true" lazy="false" fetch="select">
+            <key>
+                <column name="userId" />
+            </key>
+            <one-to-many class="org.coreplatform.entity.Review" />
+        </set>
+        <set name="topics" table="topic" inverse="true" lazy="false" fetch="select">
+            <key>
+                <column name="userId" />
+            </key>
+            <one-to-many class="org.coreplatform.entity.Topic" />
+        </set>
+        <set name="userReviewVotes" table="user_review_vote" inverse="true" lazy="false" fetch="select">
+            <key>
+                <column name="userId" not-null="true" unique="true" />
+            </key>
+            <one-to-many class="org.coreplatform.entity.UserReviewVote" />
+        </set>
+    </class>
+</hibernate-mapping>
