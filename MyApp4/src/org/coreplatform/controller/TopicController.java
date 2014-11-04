@@ -59,7 +59,7 @@ public class TopicController {
 		model.addAttribute("modal", modal);
 		if (groupId != null) {
 			topics = topicService.getTopicsByGroupId(groupId);
-			groupParameter = "&groupId=" + groupId;
+			groupParameter = "/group/" + groupId;
 			GroupService gs = new GroupService();
 			Group group = gs.getGroupById(groupId);
 			boolean isOwner = gs.isOwner(user, group);

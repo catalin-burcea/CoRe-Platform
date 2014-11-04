@@ -50,7 +50,7 @@
 							<button id="openCreateReviewModal" class="btn btn-primary pull-left " data-toggle="modal" data-target="#${modal}">
 							  Make a review
 							</button>
-							<c:if test="${groupId !=null}">
+							<c:if test="${groupId != null}">
 		   						<a href="" id="diffModeURL">
 		   							<button class="btn btn-primary pull-left">
 							  		Diff Mode

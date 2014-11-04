@@ -268,13 +268,13 @@ body {
 																			<c:choose>
 																				<c:when test="${topic.getTitle().length()>35}">
 																						<a class="no-bottom-line "
-																						href="/MyApp4/app/viewTopic/topic/${topic.getId()}"><strong
+																						href="${projectPath}/viewTopic/topic/${topic.getId()}${groupParameter}"><strong
 																						style=""> <h1 class="topic-title-link">${topic.getTitle().substring(0, 35)}...</h1> </strong></a>
 																	   					
 																	 				 </c:when>
 																				<c:otherwise>
 																						<a class="no-bottom-line"
-																						href="/MyApp4/app/viewTopic/topic/${topic.getId()}"><strong
+																						href="${projectPath}/viewTopic/topic/${topic.getId()}${groupParameter}"><strong
 																						style=""> <h1 class="topic-title-link">${topic.getTitle()} </h1></strong></a>
 																						
 																	   					 
