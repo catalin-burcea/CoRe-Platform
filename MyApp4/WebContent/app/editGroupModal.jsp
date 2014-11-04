@@ -1,4 +1,4 @@
-<script type="text/javascript"><%@ include file="assets/editGroupModal.js" %> </script>
+<script type="text/javascript"><%@ include file="assets/js/editGroupModal.js" %> </script>
 
 <style>
 #op{

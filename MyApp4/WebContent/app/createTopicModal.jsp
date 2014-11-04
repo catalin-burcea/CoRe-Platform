@@ -1,4 +1,4 @@
-<script type="text/javascript"><%@ include file="assets/createTopicModal.js" %> </script>
+<script type="text/javascript"><%@ include file="assets/js/createTopicModal.js" %> </script>
 
 
 <style>

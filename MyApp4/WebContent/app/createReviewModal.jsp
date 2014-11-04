@@ -1,4 +1,4 @@
-<script type="text/javascript"><%@ include file="assets/createReviewModal.js" %> </script>
+<script type="text/javascript"><%@ include file="assets/js/createReviewModal.js" %> </script>
 
 <!-- Modal -->
 <div class="modal fade bs-example-modal-lg" id="reviewModal"

@@ -6,8 +6,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>view topic</title>
 <%@ include file="head.jsp"%>
-<script type="text/javascript"><%@ include file="assets/stars.js" %></script>
-<script type="text/javascript"><%@ include file="assets/viewTopic.js" %></script>
+<script type="text/javascript"><%@ include file="assets/js/stars.js" %></script>
+<script type="text/javascript"><%@ include file="assets/js/viewTopic.js" %></script>
     
 <style type="text/css">
     

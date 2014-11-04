@@ -8,7 +8,7 @@
 <title>topics</title>
 
 <%@ include file="head.jsp"%>
-<script type="text/javascript"><%@ include file="assets/searchableList.js" %> </script>
+<script type="text/javascript"><%@ include file="assets/js/searchableList.js" %> </script>
 
 <style type="text/css">
 .panel>.list-group .list-group-item:first-child {

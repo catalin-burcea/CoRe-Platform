@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>users</title>
 <%@ include file="head.jsp" %> 
-<script type="text/javascript"><%@ include file="assets/searchableList.js" %> </script>
+<script type="text/javascript"><%@ include file="assets/js/searchableList.js" %> </script>
 
 <style type="text/css">
 

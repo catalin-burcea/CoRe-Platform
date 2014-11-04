@@ -1,7 +1,6 @@
-<script type="text/javascript"><%@ include file="assets/bootstrap-select.js" %></script>
-<style type="text/css"><%@ include file="assets/bootstrap-select.css" %></style>
-
-<script type="text/javascript"><%@ include file="assets/createGroupModal.js" %> </script>
+<script type="text/javascript"><%@ include file="assets/js/bootstrap-select.js" %></script>
+<style type="text/css"><%@ include file="assets/css/bootstrap-select.css" %></style>
+<script type="text/javascript"><%@ include file="assets/js/createGroupModal.js" %> </script>
 
 
 <!-- Create group modal -->

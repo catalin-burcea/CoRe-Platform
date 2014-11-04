@@ -24,7 +24,7 @@
 	</style>
 	
 <script src="http://requirejs.org/docs/release/2.1.4/minified/require.js"></script>
-<script type="text/javascript"><%@ include file="assets/diffMode.js" %> </script>
+<script type="text/javascript"><%@ include file="assets/js/diffMode.js" %> </script>
 
 </head>
 <body>
