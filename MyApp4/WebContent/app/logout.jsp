@@ -1,5 +1,5 @@
-<%@page import="org.app.service.ActiveUsersService"%>
-<%@page import="org.app.entities.User"%>
+<%@page import="org.coreplatform.service.ActiveUsersService"%>
+<%@page import="org.coreplatform.entity.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

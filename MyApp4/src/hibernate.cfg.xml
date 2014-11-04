@@ -11,15 +11,15 @@
         <property name="hibernate.connection.password">3268</property>
         <property name="show_sql">true</property>		
         <property name="hbm2ddl.auto">update</property>
-        <mapping resource="org/app/entities/Test.hbm.xml"/> 
-        <mapping resource="org/app/entities/Tag.hbm.xml"/> 
-        <mapping resource="org/app/entities/Topic.hbm.xml"/> 
-		<mapping resource="org/app/entities/User.hbm.xml"/>
-		<mapping resource="org/app/entities/Comment.hbm.xml"/> 
-		<mapping resource="org/app/entities/Review.hbm.xml"/> 
-		<mapping resource="org/app/entities/UserReviewVote.hbm.xml"/> 
-		<mapping resource="org/app/entities/UserGroup.hbm.xml"/> 
-		<mapping resource="org/app/entities/Group.hbm.xml"/> 
+        <mapping resource="org/coreplatform/entity/Test.hbm.xml"/> 
+        <mapping resource="org/coreplatform/entity/Tag.hbm.xml"/> 
+        <mapping resource="org/coreplatform/entity/Topic.hbm.xml"/> 
+		<mapping resource="org/coreplatform/entity/User.hbm.xml"/>
+		<mapping resource="org/coreplatform/entity/Comment.hbm.xml"/> 
+		<mapping resource="org/coreplatform/entity/Review.hbm.xml"/> 
+		<mapping resource="org/coreplatform/entity/UserReviewVote.hbm.xml"/> 
+		<mapping resource="org/coreplatform/entity/UserGroup.hbm.xml"/> 
+		<mapping resource="org/coreplatform/entity/Group.hbm.xml"/> 
 
     </session-factory>
 </hibernate-configuration>

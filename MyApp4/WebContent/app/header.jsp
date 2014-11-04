@@ -1,5 +1,5 @@
-<%@page import="com.tutorialspoint.CoRePlatformConstants"%>
-<%@page import="org.app.entities.User"%>
+<%@page import="org.coreplatform.controller.CoRePlatformConstants"%>
+<%@page import="org.coreplatform.entity.User"%>
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 	<div class="container-fluid">
 		<!-- Brand and toggle get grouped for better mobile display -->

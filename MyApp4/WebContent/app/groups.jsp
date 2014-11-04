@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@page import="org.app.service.GroupService"%>
-<%@page import="org.app.entities.UserGroup"%>
-<%@page import="org.app.entities.User"%>
+<%@page import="org.coreplatform.service.GroupService"%>
+<%@page import="org.coreplatform.entity.UserGroup"%>
+<%@page import="org.coreplatform.entity.User"%>
 <%@page import="java.util.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>

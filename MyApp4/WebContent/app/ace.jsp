@@ -20,12 +20,12 @@
 <div class="row">
     <div class="col-md-5">
         <div class="myeditor" id="editor1" style="height: 550px; width: 500px">some text 2
-   package com.tutorialspoint;
+   package org.coreplatform.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.app.model.User;
-import org.app.service.LoginService;
+import org.coreplatform.service.LoginService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
