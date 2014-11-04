@@ -85,16 +85,21 @@
 			                    <ul class="list-group">
 			                    	<c:forEach items="${allGroups}" var="group">
 			                        <li class="list-group-item">
-			                               
-			                            <a href="topics/group/${group.getId()}">${group.getName()}</a>
-			                  
-			                            <div class="pull-right action-buttons">
-			           						<form  role="form" method="POST" action="deleteGroup">	
-												<button type="submit" class="btn btn-danger glyphicon glyphicon-trash" ></button>					
-												<input type="hidden" name="groupId" value="${group.getId()}">
-											</form>
-
-			                            </div>
+			                            <div class="row">
+			                            	<div class="col-md-11">
+					                            <a class="no-bottom-line" href="topics/group/${group.getId()}">
+					                            	<div><strong>${group.getName()}</strong></div>
+					                            </a>
+					                        </div>
+				                  
+				                            <div class="col-md-1 action-buttons">
+				           						<form  role="form" method="POST" action="deleteGroup">	
+													<button type="submit" class="btn btn-danger glyphicon glyphicon-trash" ></button>					
+													<input type="hidden" name="groupId" value="${group.getId()}">
+												</form>
+	
+				                            </div>
+				                        </div>
 			                        </li>
 			                        </c:forEach>
 			
@@ -145,27 +150,32 @@
 						                <div class="panel-body">
 						                    <ul class="list-group">
 						                    	<c:forEach items="${ownerGroups}" var="group">
-						                        <li class="list-group-item">						                        
-						                            <a href="topics/group/${group.getGroup().getId()}">${group.getGroup().getName()}</a>
-						               
-						                            <div class="pull-right action-buttons">
-
-						           						<form  role="form" method="POST" action="deleteGroup">	
-															<button type="submit" class="btn btn-danger glyphicon glyphicon-trash" ></button>					
-															<input type="hidden" name="groupId" value="${group.getGroup().getId()}">
-														</form>
-						                            </div>
-						                       		 <button name="openEditGroupModal" type="submit" class="pull-right btn btn-primary glyphicon glyphicon-pencil" data-toggle="modal" data-target="#editGroupModal">
-						                					<input  type="hidden" name="groupId" value="${group.getGroup().getId()}">	 	
-						                       		 </button>
+						                        <li class="list-group-item">
+							                      	<div class="row">
+			                            				<div class="col-md-10">  						                        
+								                            <a class="no-bottom-line" href="topics/group/${group.getGroup().getId()}">
+								                            	<div><strong>${group.getGroup().getName()}</strong></div>
+								               				</a>
+								               			</div>
+								               			<div class="col-md-2">
+								                            <div class="pull-right action-buttons">
+								           						<form  role="form" method="POST" action="deleteGroup">	
+																	<button type="submit" class="btn btn-danger glyphicon glyphicon-trash" ></button>					
+																	<input type="hidden" name="groupId" value="${group.getGroup().getId()}">
+																</form>
+								                            </div>
+								                       		 <button name="openEditGroupModal" type="submit" class="pull-right btn btn-primary glyphicon glyphicon-pencil" data-toggle="modal" data-target="#editGroupModal">
+								                					<input  type="hidden" name="groupId" value="${group.getGroup().getId()}">	 	
+								                       		 </button>
+								                        </div>
 
 						                        </li>
 						                        </c:forEach>	
 						                    </ul>
 						                </div>
 						            </div>
-			            </c:if>
-			            		</div>
+			           			 </c:if>
+			            	</div>
 			            		<div class="row">
 			            		<c:if test="${memberGroups.size()>0}">
 						            <div class="panel panel-primary">
@@ -176,8 +186,13 @@
 						                    <ul class="list-group">
 						                    	<c:forEach items="${memberGroups}" var="group">
 						                        <li class="list-group-item">
-						                            <a href="topics/group/${group.getGroup().getId()}">${group.getGroup().getName()}</a>
-						               
+							                      	<div class="row">
+							                      		<div class="col-md-12">						                        
+								                            <a class="no-bottom-line" href="topics/group/${group.getGroup().getId()}">
+								                            	<div><strong>${group.getGroup().getName()}</strong></div>
+								               				</a>
+								               			</div>
+								               		</div>						               
 						                        </li>
 						                        </c:forEach>	
 						                    </ul>
@@ -186,20 +201,19 @@
 			            		</c:if>
 			            	</div>
 			       		</div>
-										<div class="col-md-2">
-						  					<button id="openCreateGroupModal" class="btn btn-primary" data-toggle="modal"
-											data-target="#createGroupModal">Create a group</button>
-										</div>
-									</div>
-								  </c:otherwise>
-							 </c:choose>
-						  </c:otherwise>
-						</c:choose>
-			</c:otherwise>
+						<div class="col-md-2">
+		  					<button id="openCreateGroupModal" class="btn btn-primary" data-toggle="modal"
+							data-target="#createGroupModal">Create a group</button>
+						</div>
+					</div>
+				  </c:otherwise>
+			 </c:choose>
+		  </c:otherwise>
 		</c:choose>
+	</c:otherwise>
+</c:choose>
 		
-
-		<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 
 </div>
 </div>

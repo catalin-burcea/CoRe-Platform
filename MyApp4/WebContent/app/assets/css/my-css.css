@@ -1,0 +1,17 @@
+.topic-title-link {
+	color:#383838;
+}
+
+.topic-title-link:hover {
+	background-color:#F0F0F0;
+	border-radius:5px;
+	color:#000000;
+}
+
+.my-container{
+	margin-top:80px;
+}
+
+.no-bottom-line:hover{
+	text-decoration:none;
+}

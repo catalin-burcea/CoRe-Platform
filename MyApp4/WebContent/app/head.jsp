@@ -2,6 +2,7 @@
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet">
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
 <style type="text/css"> <%@ include file="assets/css/style.css" %> </style>
+<style type="text/css"> <%@ include file="assets/css/my-css.css" %> </style>
 <script type="text/javascript"><%@ include file="assets/js/path.js" %></script>
 <script type="text/javascript"><%@ include file="assets/js/avatar.js" %></script>
 <script type="text/javascript"><%@ include file="assets/js/myScript.js" %></script>

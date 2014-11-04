@@ -146,20 +146,6 @@ body {
 </style>
 
 
-<style type="text/css">
-
-.topic-title-link {
-	color:#383838;
-}
-
-.topic-title-link:hover {
-	background-color:#F0F0F0;
-	border-radius:5px;
-	color:#000000;
-}
-
-</style>
-
 
 </head>
 <body>

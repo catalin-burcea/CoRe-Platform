@@ -135,14 +135,6 @@ html,body{
   animation-name: fadeInUp;
 }
 
-.my-container{
-	margin-top:80px;
-}
-
-.no-bottom-line:hover{
-	text-decoration:none;
-}
-
 
     .glyphicon-lg{font-size:3em}
 .blockquote-box{border-right:5px solid #E6E6E6;margin-bottom:25px}
