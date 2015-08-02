@@ -28,7 +28,7 @@
 	
 	function getActiveUsers(handleActiveUsers){
 		$.ajax({
-	        url: path+"/app/getActiveUsers",
+	        url: path+"/getActiveUsers",
 	        type: "GET",
 	        contentType: 'application/json; charset=utf-8',
 	        dataType: "json",

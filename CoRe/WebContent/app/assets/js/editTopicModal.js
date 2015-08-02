@@ -16,7 +16,7 @@ $(document).ready(function(){
 	window.getTags = function (handleTags){
 	
 		$.ajax({
-	        url: path+"/app/getTags",
+	        url: path+"/getTags",
 	        type: "GET",  
             contentType: 'application/json; charset=utf-8',
             dataType: "json",
@@ -31,7 +31,7 @@ $(document).ready(function(){
 	
     window.getTopicById = function(topicId, handleTopic){
         $.ajax({
-            url: path+"/app/getTopicById/"+topicId,
+            url: path+"/getTopicById/"+topicId,
             type: "GET",
             contentType: 'application/json; charset=utf-8',
             dataType: "json",
@@ -75,7 +75,7 @@ $(document).ready(function(){
 	
 	window.updateTopic = function(title, description, code, tagId, groupId, groupParameter,topicId){
 		$.ajax({
-			url : path+"/app/updateTopic",
+			url : path+"/updateTopic",
 			type : "POST",
 			data : {
 				"topicTitle" : title,

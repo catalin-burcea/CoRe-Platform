@@ -1,7 +1,7 @@
 	
 	  window.getTopicById = function(topicId, handleTopic){
 	        $.ajax({
-	            url: path+"/app/getTopicById/"+topicId,
+	            url: path+"/getTopicById/"+topicId,
 	            type: "GET",
 	            contentType: 'application/json; charset=utf-8',
 	            dataType: "json",
@@ -26,7 +26,7 @@
 	    
 	    window.getReviewById = function(reviewId, handleReviewId){
 	    	 $.ajax({
-	             url: path+"/app/getReviewById",
+	             url: path+"/getReviewById",
 	             type: "GET",
 	             data: "reviewId="+reviewId,
 	             contentType: 'application/json; charset=utf-8',

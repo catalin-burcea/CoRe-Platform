@@ -34,7 +34,7 @@ $(document).ready(function(){
 
 	window.insertTopic = function(title, description, code, tagId, groupId,groupParameter){
 		$.ajax({
-			url : path+"/app/insertTopic",
+			url : path+"/insertTopic",
 			type : "POST",
 			data : {
 				"createTopicTitle" : title,

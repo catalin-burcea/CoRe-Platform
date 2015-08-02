@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-@RequestMapping("/app/register") 
+@RequestMapping("/register") 
 public class RegisterController {
 	
    private String errorMessage=null;

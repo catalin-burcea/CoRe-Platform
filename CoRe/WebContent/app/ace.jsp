@@ -33,7 +33,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.ui.ModelMap;
 
 @Controller
-@RequestMapping("/app/login")
+@RequestMapping("/login")
 public class LoginController{
 	private String errorMessage=null;
 	
@@ -47,7 +47,7 @@ public class LoginController{
        User user = loginService.getUserByUsername(username);
        if(result == true){
            request.getSession().setAttribute("user", user);            
-           return "redirect:/app/home.jsp";
+           return "redirect:/home.jsp";
        }
        else{
     	   errorMessage="Username or password is incorrect! ";

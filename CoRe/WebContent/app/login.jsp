@@ -37,14 +37,12 @@
                                         <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
                                         <input name="password" id="password" type="password" class="form-control" placeholder="password" required>
                             </div>
-							<div>Don't have an account?<a href="register.jsp" class="no-bottom-line"> Sign up here</a></div>
+							<div>Don't have an account?<a href="register" class="no-bottom-line"> Sign up here</a></div>
 
                     <button class="btn btn-info btn-block login" type="submit">Login</button>
                 </form>
             </div>
         </div>
-        
 </div>
-
 </body>
 </html>

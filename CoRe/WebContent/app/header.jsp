@@ -29,15 +29,15 @@
 
 			<ul class="nav navbar-nav navbar-right">
 					<li><a href="#"><span class="glyphicon glyphicon-user"></span> Welcome, <%=user.getLastName()+" "+user.getFirstName()%></a></li>
-					<li><a href=<%=CoRePlatformConstants.PROJECT_PATH+"/logout.jsp"%>><i class="glyphicon glyphicon-off"></i> Logout</a></li>
+					<li><a href="logout"><i class="glyphicon glyphicon-off"></i> Logout</a></li>
 			</ul>
 
 			<%
 				} else {
 			%>
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="<%=CoRePlatformConstants.PROJECT_PATH+"/login.jsp"%>">Login</a></li>
-				<li><a href="<%=CoRePlatformConstants.PROJECT_PATH+"/register.jsp"%>">Register</a></li>
+				<li><a href="login">Login</a></li>
+				<li><a href="register">Register</a></li>
 			</ul>
 			<%
 				}

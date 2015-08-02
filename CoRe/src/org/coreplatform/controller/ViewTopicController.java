@@ -32,14 +32,14 @@ import com.google.gson.Gson;
 @Controller
 public class ViewTopicController {
 
-	@RequestMapping(value = "/app/viewTopic/topic/{topicId}/group/{groupId}", method = RequestMethod.GET)
+	@RequestMapping(value = "/viewTopic/topic/{topicId}/group/{groupId}", method = RequestMethod.GET)
 	public String getViewTopicData(@PathVariable(value = "topicId") Integer topicId, @PathVariable(value = "groupId") Integer groupId, ModelMap model, HttpServletRequest request) {
 
 		this.getTopicData(model, request, groupId);
 		return "viewTopic";
 	}
 
-	@RequestMapping(value = "/app/viewTopic/topic/{topicId}", method = RequestMethod.GET)
+	@RequestMapping(value = "/viewTopic/topic/{topicId}", method = RequestMethod.GET)
 	public String getTopicData(@PathVariable(value = "topicId") Integer topicId, ModelMap model, HttpServletRequest request) {
 
 		this.getTopicData(model, request, null);
@@ -64,7 +64,7 @@ public class ViewTopicController {
 		model.addAttribute("groupMembers", groupMembers);
 	}
 
-	@RequestMapping(value = "/app/getTopicById/{topicId}", method = RequestMethod.GET)
+	@RequestMapping(value = "/getTopicById/{topicId}", method = RequestMethod.GET)
 	public @ResponseBody
 	String getTopicById(@PathVariable(value = "topicId") Integer topicId) throws JSONException {
 
@@ -94,7 +94,7 @@ public class ViewTopicController {
 		return obj.toString();
 	}
 
-	@RequestMapping(value = "/app/getReviewById", method = RequestMethod.GET)
+	@RequestMapping(value = "/getReviewById", method = RequestMethod.GET)
 	public @ResponseBody
 	String getReviewById(@RequestParam(value = "reviewId") Integer reviewId) throws JSONException {
 
@@ -110,7 +110,7 @@ public class ViewTopicController {
 		return obj.toString();
 	}
 
-	@RequestMapping(value = "/app/getReviewStars", method = RequestMethod.GET)
+	@RequestMapping(value = "/getReviewStars", method = RequestMethod.GET)
 	public @ResponseBody
 	String getReviewStars(@RequestParam(value = "reviewId") Integer reviewId) {
 
@@ -121,7 +121,7 @@ public class ViewTopicController {
 		return f.format(stars);
 	}
 
-	@RequestMapping(value = "/app/getTopicComments", method = RequestMethod.GET)
+	@RequestMapping(value = "/getTopicComments", method = RequestMethod.GET)
 	public @ResponseBody
 	String getTopicComments(@RequestParam(value = "topicId") Integer topicId, HttpServletRequest request) throws JSONException {
 
@@ -146,7 +146,7 @@ public class ViewTopicController {
 		return ja.toString();
 	}
 
-	@RequestMapping(value = "/app/getAdmin", method = RequestMethod.GET)
+	@RequestMapping(value = "/getAdmin", method = RequestMethod.GET)
 	public @ResponseBody
 	String getAdmin(@RequestParam(value = "groupId", required = false) String groupId, HttpServletRequest request) throws JSONException {
 
@@ -168,7 +168,7 @@ public class ViewTopicController {
 		return obj.toString();
 	}
 
-	@RequestMapping(value = "/app/deleteComment", method = RequestMethod.POST)
+	@RequestMapping(value = "/deleteComment", method = RequestMethod.POST)
 	public String deleteGroup(@RequestParam(value = "commentId", required = false) Integer commentId, @RequestParam(value = "topicId", required = false) Integer topicId,
 			@RequestParam(value = "groupId", required = false) String groupId) {
 
@@ -176,11 +176,11 @@ public class ViewTopicController {
 		vts.deleteComment(commentId);
 		String groupParameter = (!groupId.equals("null")) ? "/group/" + groupId : "";
 
-		return "redirect:" + CoRePlatformConstants.APP + "/viewTopic/topic/" + topicId + groupParameter;
+		return "redirect:/viewTopic/topic/" + topicId + groupParameter;
 
 	}
 
-	@RequestMapping(value = "/app/deleteReview", method = RequestMethod.POST)
+	@RequestMapping(value = "/deleteReview", method = RequestMethod.POST)
 	public String deleteReview(@RequestParam(value = "reviewId", required = false) Integer reviewId, @RequestParam(value = "topicId", required = false) Integer topicId,
 			@RequestParam(value = "groupId", required = false) Integer groupId) {
 
@@ -188,11 +188,11 @@ public class ViewTopicController {
 		vts.deleteReview(reviewId);
 		String groupParameter = (groupId != null) ? "/group/" + groupId : "";
 
-		return "redirect:" + CoRePlatformConstants.APP + "/viewTopic/topic/" + topicId + groupParameter;
+		return "redirect:/viewTopic/topic/" + topicId + groupParameter;
 
 	}
 
-	@RequestMapping(value = "/app/getReviewComments", method = RequestMethod.GET)
+	@RequestMapping(value = "/getReviewComments", method = RequestMethod.GET)
 	public @ResponseBody
 	String getReviewComments(@RequestParam(value = "reviewId") Integer reviewId) throws JSONException {
 
@@ -216,7 +216,7 @@ public class ViewTopicController {
 		return ja.toString();
 	}
 
-	@RequestMapping(value = "/app/insertTopicComment", method = RequestMethod.POST)
+	@RequestMapping(value = "/insertTopicComment", method = RequestMethod.POST)
 	public @ResponseBody
 	String insertTopicComment(@RequestParam(value = "postTopicComment", required = false) String topicComment, @RequestParam(value = "topicId", required = false) Integer topicId,
 			HttpServletRequest request) {
@@ -230,7 +230,7 @@ public class ViewTopicController {
 		return "ok";
 	}
 
-	@RequestMapping(value = "/app/insertReviewComment", method = RequestMethod.POST)
+	@RequestMapping(value = "/insertReviewComment", method = RequestMethod.POST)
 	public @ResponseBody
 	String insertReviewComment(@RequestParam(value = "postReviewComment", required = false) String reviewComment,
 			@RequestParam(value = "reviewId", required = false) Integer reviewId, HttpServletRequest request) {
@@ -243,7 +243,7 @@ public class ViewTopicController {
 		return "ok";
 	}
 
-	@RequestMapping(value = "/app/addStars", method = RequestMethod.POST)
+	@RequestMapping(value = "/addStars", method = RequestMethod.POST)
 	public @ResponseBody
 	String addStars(@RequestParam(value = "numberOfStars") Integer numberOfStars, @RequestParam(value = "reviewId") Integer reviewId, HttpServletRequest request)
 			throws JSONException {
@@ -256,7 +256,7 @@ public class ViewTopicController {
 		return "ok";
 	}
 
-	@RequestMapping(value = "/app/getUserReviewStars", method = RequestMethod.GET)
+	@RequestMapping(value = "/getUserReviewStars", method = RequestMethod.GET)
 	public @ResponseBody
 	String getUserReviewStars(@RequestParam(value = "reviewId") Integer reviewId, HttpServletRequest request) {
 
@@ -268,7 +268,7 @@ public class ViewTopicController {
 		return urv != null ? urv.getStars() + "" : "0";
 	}
 
-	@RequestMapping(value = "/app/insertReview", method = RequestMethod.POST)
+	@RequestMapping(value = "/insertReview", method = RequestMethod.POST)
 	public @ResponseBody
 	String insertReview(@RequestParam(value = "reviewCode", required = false) String reviewCode,
 			@RequestParam(value = "reviewDescription", required = false) String reviewDescription, @RequestParam(value = "topicId", required = false) Integer topicId,
@@ -281,5 +281,11 @@ public class ViewTopicController {
 		vts.insertReview(reviewCode, reviewDescription, user, topic);
 		
 		return "ok";
+	}
+	
+	@RequestMapping(value = "/diffMode", method = RequestMethod.GET)
+	public String displayDiffMode(ModelMap model, HttpServletRequest request, @RequestParam(value = "topicId", required = false) String topicId,
+			@RequestParam(value = "reviewId", required = false) String reviewId) {
+		return "diffMode.jsp?topicId="+topicId+"&reviewId="+reviewId;
 	}
 }

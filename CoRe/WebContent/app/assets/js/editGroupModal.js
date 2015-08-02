@@ -1,7 +1,7 @@
 $(document).ready(function(){
     window.getGroupById = function(groupId, handleGroup){
         $.ajax({
-            url: path+"/app/getGroupById",
+            url: path+"/getGroupById",
             type: "GET",
             contentType: 'application/json; charset=utf-8',
             dataType: "json",
@@ -25,7 +25,7 @@ $(document).ready(function(){
     
     window.updateGroup = function(name, groupId){
 		$.ajax({
-			url : path+"/app/updateGroup",
+			url : path+"/updateGroup",
 			type : "POST",
 			data : {
 				"groupName" : name,

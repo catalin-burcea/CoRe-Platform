@@ -32,14 +32,14 @@
     	var topicId = GetURLParameter("topic");
     	if(Reviews.length>0){
     		var reviewId = Reviews[next];
-        	var diffModeURL = projectPath+"/diffMode.jsp?topicId="+topicId+"&reviewId="+reviewId;
+        	var diffModeURL = projectPath+"/diffMode?topicId="+topicId+"&reviewId="+reviewId;
         	$("#diffModeURL").attr('href',diffModeURL);
     	}
     }
     
     window.getTopicById = function(topicId){
         $.ajax({
-            url: path+"/app/getTopicById/"+topicId,
+            url: path+"/getTopicById/"+topicId,
             type: "GET",
             contentType: 'application/json; charset=utf-8',
             dataType: "json",
@@ -69,7 +69,7 @@
     window.getTopicComments = function(topicId){
     	
     	$.ajax({
-            url: path+"/app/getTopicComments",
+            url: path+"/getTopicComments",
             type: "GET",
             contentType: 'application/json; charset=utf-8',
             dataType: "json",
@@ -126,7 +126,7 @@
 	window.getAdmin = function(handleAdmin){
 		var groupId = GetURLParameter("group");
     	$.ajax({
-            url: path+"/app/getAdmin",
+            url: path+"/getAdmin",
             type: "GET",
             contentType: 'application/json; charset=utf-8',
             dataType: "json",
@@ -144,7 +144,7 @@
     window.getReviewComments = function(){
     	var reviewId=Reviews[next];
     	$.ajax({
-            url: path+"/app/getReviewComments",
+            url: path+"/getReviewComments",
             type: "GET",
             contentType: 'application/json; charset=utf-8',
             dataType: "json",
@@ -239,7 +239,7 @@
     
     window.isLoggedIn = function(handleIsLoggedIn){
     	 $.ajax({
-             url: path+"/app/isLoggedIn",
+             url: path+"/isLoggedIn",
              type: "GET",
              success: function(isLoggedIn){
 				handleIsLoggedIn(isLoggedIn);
@@ -274,7 +274,7 @@
     
     window.getReviewStars = function(handleReviewStars){
 	   	 	$.ajax({
-	            url: path+"/app/getReviewStars",
+	            url: path+"/getReviewStars",
 	            type: "GET",
 	            data: "reviewId="+Reviews[next],
 	            contentType: 'application/json; charset=utf-8',
@@ -300,7 +300,7 @@
     window.getReview = function(handleReview){
       	 setNextReviewIt();
     	 $.ajax({
-             url: path+"/app/getReviewById",
+             url: path+"/getReviewById",
              type: "GET",
              data: "reviewId="+Reviews[next],
              dataType: "json",
@@ -347,7 +347,7 @@
 				    		groupParameter="/group/"+groupId;
 				    	}
 				    	$.ajax({
-							url : path+"/app/insertTopicComment",
+							url : path+"/insertTopicComment",
 							type : "POST",
 							data : {
 								"postTopicComment" : postTopicComment,
@@ -380,7 +380,7 @@
 				    		groupParameter="/group/"+groupId;
 				    	}
 				    	$.ajax({
-							url : path+"/app/insertReviewComment",
+							url : path+"/insertReviewComment",
 							type : "POST",
 							data : {
 								"postReviewComment" : postReviewComment,
@@ -418,7 +418,7 @@
     	  window.getUserReviewStars = function(reviewId, handle){
 
     		 	$.ajax({
-    	            url: path+"/app/getUserReviewStars",
+    	            url: path+"/getUserReviewStars",
     	            type: "GET",
     	            contentType: 'application/json; charset=utf-8',
     	            data: "reviewId="+reviewId,
@@ -434,7 +434,7 @@
     	  window.addStars = function(numberOfStars, handleAddStars){
     		  var reviewId = Reviews[next];
     		  $.ajax({
-					url : path+"/app/addStars",
+					url : path+"/addStars",
 					type : "POST",
 					data : {
 						"numberOfStars" : numberOfStars,

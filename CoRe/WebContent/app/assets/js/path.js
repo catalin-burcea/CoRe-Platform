@@ -1,2 +1,2 @@
-var path = "http://localhost:8181/CoRe";
-var projectPath = "/CoRe/app";
+var path = "http://localhost:8080/CoRe";
+var projectPath = "/CoRe";

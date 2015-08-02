@@ -19,14 +19,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class UserController {
 
-	@RequestMapping(value = "/app/isLoggedIn", method = RequestMethod.GET)
+	@RequestMapping(value = "/isLoggedIn", method = RequestMethod.GET)
 	public @ResponseBody String isLoggedIn(HttpServletRequest request) {
 
 		User user = (User) request.getSession().getAttribute("user");
 		return user != null ? "true" :"false";
 	}
 
-	@RequestMapping(value = "/app/getActiveUsers", method = RequestMethod.GET)
+	@RequestMapping(value = "/getActiveUsers", method = RequestMethod.GET)
 	public @ResponseBody String getActiveUsers() throws JSONException {
 
 		JSONObject obj = null;
@@ -40,7 +40,7 @@ public class UserController {
 		return ja.toString();
 	}
 
-	@RequestMapping(value = "/app/users", method = RequestMethod.GET)
+	@RequestMapping(value = "/users", method = RequestMethod.GET)
 	public String getUsers(ModelMap model) {
 
 		GroupService gs = new GroupService();

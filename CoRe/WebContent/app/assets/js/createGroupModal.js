@@ -2,7 +2,7 @@
 			var groupMembers=[];
         	window.getUsers = function (){
         		$.ajax({
-        	        url: path+"/app/getUsers",
+        	        url: path+"/getUsers",
         	        type: "GET", 
                     dataType: "json",
         	        success: function(users){
@@ -38,7 +38,7 @@
         	window.createGroup = function(data){
         		
         		$.ajax({
-					url : path+"/app/createGroup",
+					url : path+"/createGroup",
 					type : "POST",
 					contentType: 'application/json', 
 					data: JSON.stringify(data) ,

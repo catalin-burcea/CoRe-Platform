@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class TopicController {
 
-	@RequestMapping(value = "/app/getTags", method = RequestMethod.GET)
+	@RequestMapping(value = "/getTags", method = RequestMethod.GET)
 	public @ResponseBody
 	String getTags() throws JSONException {
 
@@ -78,7 +78,7 @@ public class TopicController {
 
 	}
 
-	@RequestMapping(value = "/app/topics", method = RequestMethod.GET)
+	@RequestMapping(value = "/topics", method = RequestMethod.GET)
 	public String getPublicTopics(ModelMap model, HttpServletRequest request) {
 
 		getTopics(model, request, null);
@@ -86,7 +86,7 @@ public class TopicController {
 
 	}
 
-	@RequestMapping(value = "/app/topics/group/{groupId}", method = RequestMethod.GET)
+	@RequestMapping(value = "/topics/group/{groupId}", method = RequestMethod.GET)
 	public String getTopicsByGroupId(ModelMap model, HttpServletRequest request, @PathVariable(value = "groupId") Integer groupId) {
 
 		this.getTopics(model, request, groupId);
@@ -94,18 +94,18 @@ public class TopicController {
 
 	}
 
-	@RequestMapping(value = "/app/deleteTopic", method = RequestMethod.POST)
+	@RequestMapping(value = "/deleteTopic", method = RequestMethod.POST)
 	public String deleteTopic(@RequestParam(value = "topicId", required = false) Integer topicId, @RequestParam(value = "groupId", required = false) Integer groupId) {
 
 		TopicService ts = new TopicService();
 		ts.deleteTopic(topicId);
 		String groupParameter = groupId != null ? "/group/" + groupId : "";
 		
-		return "redirect:" + CoRePlatformConstants.APP + "/topics" + groupParameter;
+		return "redirect:/topics" + groupParameter;
 
 	}
 
-	@RequestMapping(value = "/app/insertTopic", method = RequestMethod.POST)
+	@RequestMapping(value = "/insertTopic", method = RequestMethod.POST)
 	public @ResponseBody
 	String insertTopic(@RequestParam(value = "createTopicTitle", required = false) String topicTitle,
 			@RequestParam(value = "createTopicDescription", required = false) String topicDescription, @RequestParam(value = "createTopicCode", required = false) String topicCode,
@@ -121,7 +121,7 @@ public class TopicController {
 		return "ok";
 	}
 
-	@RequestMapping(value = "/app/updateTopic", method = RequestMethod.POST)
+	@RequestMapping(value = "/updateTopic", method = RequestMethod.POST)
 	public @ResponseBody
 	String updateTopic(@RequestParam(value = "topicTitle", required = false) String topicTitle,
 			@RequestParam(value = "topicDescription", required = false) String topicDescription, @RequestParam(value = "topicCode", required = false) String topicCode,

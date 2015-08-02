@@ -8,7 +8,7 @@
 	
 	window.insertReview = function(code, description, topicId, groupParameter){
 		$.ajax({
-			url : path+"/app/insertReview",
+			url : path+"/insertReview",
 			type : "POST",
 			data : {
 				"reviewCode" : code,

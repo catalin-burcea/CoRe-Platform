@@ -18,11 +18,11 @@
 		</c:if> 
 		<c:if test="${successMessage !=null}" >
 			<div id="output" class="alert alert-success animated fadeInUp">${successMessage}
-			<a href="login.jsp" class="no-bottom-line">Now, you can log in.</a></div>
+			<a href="login" class="no-bottom-line">Now, you can log in.</a></div>
 		</c:if> 
             <div class="">
       
-                 <form id="loginform" class="form-horizontal" role="form" method="POST" action="register">
+                 <form id="loginform" class="form-horizontal" role="form" method="POST" action="/CoRe/register">
                             
                             <div style="margin-bottom: 25px" class="input-group">
                                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
@@ -52,7 +52,7 @@
                                     <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
                                     <input name="repeatPassword" id="repeatPassword" type="password" class="form-control" placeholder="repeat password" required>
                             </div>
-                           	<div>Already have an account?<a href="login.jsp" class="no-bottom-line"> Sign in here</a></div>
+                           	<div>Already have an account?<a href="login" class="no-bottom-line"> Sign in here</a></div>
 
                     <button class="btn btn-info btn-block login" type="submit">Register</button>
                 </form>

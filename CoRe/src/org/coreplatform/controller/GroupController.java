@@ -22,26 +22,26 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class GroupController {
 	
-	@RequestMapping(value = "/app/deleteGroup", method = RequestMethod.POST)
+	@RequestMapping(value = "/deleteGroup", method = RequestMethod.POST)
 	public String deleteGroup(@RequestParam(value="groupId", required = false) Integer groupId){
 
 		GroupService gs = new GroupService();
 		gs.deleteGroup(groupId);
-		return "redirect:"+CoRePlatformConstants.APP+"/groups";
+		return "redirect:/groups";
 
 	}
 	
-	@RequestMapping(value = "/app/updateGroup", method = RequestMethod.POST)
+	@RequestMapping(value = "/updateGroup", method = RequestMethod.POST)
 	public String updateGroup(@RequestParam(value="groupName", required = false) String groupName,
 			@RequestParam(value="groupId", required = false) Integer groupId){
 
 		GroupService gs = new GroupService();
 		gs.updateGroup(groupId, groupName);
-		return "redirect:"+CoRePlatformConstants.APP+"/groups";
+		return "redirect:/groups";
 
 	}
 	
-	@RequestMapping(value = "/app/removeUserFromGroup", method = RequestMethod.POST)
+	@RequestMapping(value = "/removeUserFromGroup", method = RequestMethod.POST)
 	public String removeUserFromGroup(@RequestParam(value="userId", required = false) Integer userId,
 			@RequestParam(value="groupId", required = false) Integer groupId,
 			HttpServletRequest request){
@@ -50,11 +50,11 @@ public class GroupController {
 		Group group = gs.getGroupById(groupId);
 		User user = gs.getUserById(userId);
 		gs.removeUserFromGroup(user, group);
-		return "redirect:"+CoRePlatformConstants.APP+"/topics/group/"+groupId;
+		return "redirect:/topics/group/"+groupId;
 
 	}
 	
-	@RequestMapping(value = "/app/getUsers", method = RequestMethod.GET)
+	@RequestMapping(value = "/getUsers", method = RequestMethod.GET)
 	public @ResponseBody
 	String getUsers(HttpServletRequest request) throws JSONException {
 
@@ -73,7 +73,7 @@ public class GroupController {
 		return ja.toString();
 
 	}
-	@RequestMapping(value = "/app/getGroupById", method = RequestMethod.GET)
+	@RequestMapping(value = "/getGroupById", method = RequestMethod.GET)
 	public @ResponseBody
 	String getGroupById(@RequestParam(value="groupId", required = false) Integer groupId,
 			HttpServletRequest request) throws JSONException {
@@ -89,7 +89,7 @@ public class GroupController {
 
 	}
 	
-	@RequestMapping(value = "/app/groups", method = RequestMethod.GET)
+	@RequestMapping(value = "/groups", method = RequestMethod.GET)
 	public String getGroups(HttpServletRequest request, ModelMap model) throws JSONException {
 		
 		User user = (User)request.getSession().getAttribute("user");
@@ -109,7 +109,7 @@ public class GroupController {
 
 	}
 	
-	@RequestMapping(value = "/app/createGroup", method = RequestMethod.POST)
+	@RequestMapping(value = "/createGroup", method = RequestMethod.POST)
 	public @ResponseBody
 	String createGroup(@RequestBody String data,
 			HttpServletRequest request) throws JSONException {
