@@ -10,7 +10,7 @@ $(document).ready(function(){
             	handleGroup(group);
             },
             error:function(msg,er,t){
-            	
+            	log.error("Error getting group by id in editGroupModal" + er + t);
             } 
         });
     }
@@ -35,7 +35,7 @@ $(document).ready(function(){
 				window.location = "groups";
 			},
 			error : function(msg, er, t) {
-				//alert(msg + er + t);
+				log.error("Error update group" + er + t);
 			}
 		});
 	}
