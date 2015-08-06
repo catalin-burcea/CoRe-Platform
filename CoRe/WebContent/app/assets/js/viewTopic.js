@@ -118,7 +118,7 @@
             	});
             },
             error:function(msg,er,t){
-				//alert(msg+"   "+er+"  "+t);
+            	log.error("Error getting topic comments" + er + t);
             } 
         });
     }
@@ -135,7 +135,7 @@
             	handleAdmin(data["admin"], data["groupAdmin"]);
             },
             error:function(msg,er,t){
-				//alert(msg+"   "+er+"  "+t);
+            	log.error("Error getAdmin" + er + t);
             } 
         });
     }
@@ -193,7 +193,7 @@
             	});
             },
             error:function(msg,er,t){
-				//alert(msg+"   "+er+"  "+t);
+            	log.error("Error getting review comments" + er + t);
             } 
         });
     }
@@ -208,7 +208,6 @@
 			getReview(function(data){	
 				getAdmin(function(admin, groupAdmin){
             		if((admin != null && admin!='')||(groupAdmin!=null && groupAdmin!='')){
-
 						var topicId=GetURLParameter("topic");
 						var groupId=GetURLParameter("group");
 						$("#deleteReviewForm").show();
@@ -245,7 +244,7 @@
 				handleIsLoggedIn(isLoggedIn);
              },
              error:function(msg,er,t){
-				//alert(msg+er+t+" isloggedin error");
+            	 log.error("Error isLoggedIn" + er + t);
              } 
          });
     }
@@ -282,7 +281,7 @@
 	         	  	handleReviewStars(data);
 	            },
 	            error:function(msg,er,t){
-						
+	            	log.error("Error getting review stars" + er + t);
 	            } 
 	        });
    }
@@ -308,7 +307,7 @@
             	 handleReview(data);
              },
              error:function(msg,er,t){
-					
+            	 log.error("Error getting review by id in viewTopic" + er + t);
              } 
          });
     }
@@ -357,7 +356,7 @@
 								window.location = projectPath+"/viewTopic/topic/" + topicId+groupParameter;
 							},
 							error : function(msg, er, t) {
-								//alert(msg + er + t);
+								log.error("Error inserting topic comment" + er + t);
 							}
 						});
 					}else{
@@ -390,7 +389,7 @@
 								window.location = projectPath+"/viewTopic/topic/" + topicId+groupParameter;
 							},
 							error : function(msg, er, t) {
-								//alert(msg + er + t);
+								log.error("Error inserting revire comment" + er + t);
 							}
 						});
 					}else{
@@ -426,7 +425,7 @@
     	            	handle(data);	
     	            },
     	            error:function(msg,er,t){
-    					//alert(msg+"   "+er+"  "+t+" getUserReviewStars error");
+    	            	log.error("Error getting user review stars" + er + t);
     	            } 
     	        });
     	  };
@@ -444,7 +443,7 @@
 						handleAddStars();
 					},
 					error : function(msg, er, t) {
-						//alert(msg + er + t+"insert vote error");
+						log.error("Error adding stars" + er + t);
 					}
 				});
     	  }

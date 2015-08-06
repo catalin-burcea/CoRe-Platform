@@ -24,7 +24,7 @@ $(document).ready(function(){
 					handleTags(tags);
 	        },
 	        error:function(msg,er,t) {
-	        	//alert(msg+er+t);
+	        	log.error("Error getting tags" + er + t);
 	        } 
 	    });
 	}
@@ -39,7 +39,7 @@ $(document).ready(function(){
             	handleTopic(data);
             },
             error:function(msg,er,t){
-            	
+            	log.error("Error getting topic by id in editTopicModal" + er + t);
             } 
         });
     }
@@ -89,7 +89,7 @@ $(document).ready(function(){
 				window.location = projectPath+"/topics"+groupParameter;
 			},
 			error : function(msg, er, t) {
-				//alert(msg + er + t);
+				log.error("Error update topic" + er + t);
 			}
 		});
 	}
@@ -119,7 +119,7 @@ $(document).ready(function(){
 	    if (file) {
 	          getAsText(file,updateTopicEditor);
 	    }else{
-	    	////alert("file error");
+	    	log.error("Error editTopicFile" + er + t);
 	    }
 	});
 

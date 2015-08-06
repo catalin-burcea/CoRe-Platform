@@ -15,12 +15,11 @@
 				"reviewDescription" : description,
 				"topicId" : topicId
 			},
-
 			success : function(data) {
 				window.location = projectPath+"/viewTopic/topic/" + topicId + groupParameter;
 			},
 			error : function(msg, er, t) {
-				//alert(msg + er + t);
+				log.error("Error insert review" + er + t);
 			}
 		});
 	}
@@ -55,9 +54,9 @@
 		$("#createReviewFile").change(function(evt) {
 		    var file = document.getElementById('createReviewFile').files[0];
 		    if (file) {
-		          getAsText(file,answerEditor);
+		          getAsText(file, answerEditor);
 		    }else{
-		    	//alert("file error");
+		    	log.error("Error create review file" + er + t);
 		    }
 		});
 

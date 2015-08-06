@@ -69,7 +69,7 @@ public class GroupController {
 			obj.put("username", user.getUsername());
 			ja.put(obj);
 		}
-
+		
 		return ja.toString();
 
 	}

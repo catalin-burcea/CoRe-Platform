@@ -47,7 +47,7 @@ $(document).ready(function(){
 				window.location = projectPath+"/topics"+groupParameter;
 			},
 			error : function(msg, er, t) {
-				//alert(msg + er + t);
+				log.error("Error insert topic" + er + t);
 			}
 		});
 	}
@@ -84,7 +84,7 @@ $(document).ready(function(){
 	    if (file) {
 	          getAsText(file,topicEditor);
 	    }else{
-	    	////alert("file error");
+	    	log.error("Error create topic file" + er + t);
 	    }
 	});
 });
