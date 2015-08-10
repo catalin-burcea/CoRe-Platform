@@ -60,119 +60,117 @@ public class TopicService {
     }
 	
 	@SuppressWarnings("unchecked")
-	public List<Topic> getTopics(){
-		 List<Topic> list = new ArrayList<Topic>();
-	        Session session = HibernateUtil.openSession();
-	        Transaction tx = null;        
-	        try {
-	            tx = session.getTransaction();
-	            tx.begin();
-	            Criteria criteria= session.createCriteria(Topic.class)
-	            		.add(Restrictions.isNull("group"))
-	            		.addOrder(Order.desc("date"));
-	            list=criteria.list();
-	            tx.commit();
-	        } catch (Exception e) {
-	            if (tx != null) {
-	                tx.rollback();
-	            }
-	            e.printStackTrace();
-	        } finally {
-	            session.close();
-	        }
+	public List<Topic> getTopics() {
+		List<Topic> list = new ArrayList<Topic>();
+		Session session = HibernateUtil.openSession();
+		Transaction tx = null;
+		try {
+			tx = session.getTransaction();
+			tx.begin();
+			Criteria criteria = session.createCriteria(Topic.class).add(Restrictions.isNull("group")).addOrder(Order.desc("date"));
+			list = criteria.list();
+			tx.commit();
+		} catch (Exception e) {
+			if (tx != null) {
+				tx.rollback();
+			}
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return list;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Topic> getTopicsByGroupId(Integer groupId) {
+		List<Topic> list = new ArrayList<Topic>();
+		Session session = HibernateUtil.openSession();
+		Transaction tx = null;
+		try {
+			tx = session.getTransaction();
+			tx.begin();
+			GroupService gs = new GroupService();
+			Group group = gs.getGroupById(groupId);
+			Criteria criteria = session.createCriteria(Topic.class);
+			criteria.add(Restrictions.eq("group", group));
+			criteria.addOrder(Order.desc("date"));
+			list = criteria.list();
+			tx.commit();
+		} catch (Exception e) {
+			if (tx != null) {
+				tx.rollback();
+			}
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
 	        return list;
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Topic> getTopicsByGroupId(Integer groupId){
-		 List<Topic> list = new ArrayList<Topic>();
-	        Session session = HibernateUtil.openSession();
-	        Transaction tx = null;        
-	        try {
-	            tx = session.getTransaction();
-	            tx.begin();
-	            GroupService gs = new GroupService();
-	            Group group = gs.getGroupById(groupId);
-	            Criteria criteria= session.createCriteria(Topic.class);
-	            criteria.add(Restrictions.eq("group", group));
-	            criteria.addOrder(Order.desc("date"));
-	            list=criteria.list();
-	            tx.commit();
-	        } catch (Exception e) {
-	            if (tx != null) {
-	                tx.rollback();
-	            }
-	            e.printStackTrace();
-	        } finally {
-	            session.close();
-	        }
-	        return list;
-	}
-	
-	@SuppressWarnings("unchecked")
-	public List<Tag> getTags(){
-		 List<Tag> list = new ArrayList<Tag>();
-	        Session session = HibernateUtil.openSession();
-	        Transaction tx = null;        
-	        try {
-	            tx = session.getTransaction();
-	            tx.begin();
-	            Criteria criteria= session.createCriteria(Tag.class);
-	            criteria.addOrder(Order.asc("title"));
-	            list=criteria.list();
-	            tx.commit();
-	        } catch (Exception e) {
-	            if (tx != null) {
-	                tx.rollback();
-	            }
-	            e.printStackTrace();
-	        } finally {
-	            session.close();
-	        }
-	        return list;
+	public List<Tag> getTags() {
+		List<Tag> list = new ArrayList<Tag>();
+		Session session = HibernateUtil.openSession();
+		Transaction tx = null;
+		try {
+			tx = session.getTransaction();
+			tx.begin();
+			Criteria criteria = session.createCriteria(Tag.class);
+			criteria.addOrder(Order.asc("title"));
+			list = criteria.list();
+			tx.commit();
+		} catch (Exception e) {
+			if (tx != null) {
+				tx.rollback();
+			}
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return list;
 	}
 	
 	public Tag getTagById(Integer tagId){
-			Tag tag =  null;
-	        Session session = HibernateUtil.openSession();
-	        Transaction tx = null;        
-	        try {
-	            tx = session.getTransaction();
-	            tx.begin();
-	            Criteria criteria= session.createCriteria(Tag.class);
-	            criteria.add(Restrictions.eq("id", tagId));
-	            tag = (Tag) criteria.uniqueResult();
-	            tx.commit();
-	        } catch (Exception e) {
-	            if (tx != null) {
-	                tx.rollback();
-	            }
-	            e.printStackTrace();
-	        } finally {
-	            session.close();
-	        }
-	        return tag;
+		Tag tag = null;
+		Session session = HibernateUtil.openSession();
+		Transaction tx = null;
+		try {
+			tx = session.getTransaction();
+			tx.begin();
+			Criteria criteria = session.createCriteria(Tag.class);
+			criteria.add(Restrictions.eq("id", tagId));
+			tag = (Tag) criteria.uniqueResult();
+			tx.commit();
+		} catch (Exception e) {
+			if (tx != null) {
+				tx.rollback();
+			}
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return tag;
 	}
 	
 	
 	public void insertTopic(Tag tag, Group group, User user, String title, String description, String code){
-	        Session session = HibernateUtil.openSession();
-	        Transaction tx = null;        
-	        try {
-	            tx = session.getTransaction();
-	            tx.begin();
+        Session session = HibernateUtil.openSession();
+        Transaction tx = null;        
+        try {
+            tx = session.getTransaction();
+            tx.begin();
 
-	            Topic topic = new Topic(tag, group, user, title, description, code, new Date(),null,null);
-	            session.save(topic);
-	            tx.commit();
-	        } catch (Exception e) {
-	            if (tx != null) {
-	                tx.rollback();
-	            }
-	            e.printStackTrace();
-	        } finally {
-	            session.close();
-	        }
+            Topic topic = new Topic(tag, group, user, title, description, code, new Date(),null,null);
+            session.save(topic);
+            tx.commit();
+        } catch (Exception e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
 	}
 	
 	public void updateTopic(Integer topicId,Tag tag, String title, String description, String code){

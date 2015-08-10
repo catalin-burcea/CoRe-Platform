@@ -1,4 +1,4 @@
-<%@page import="org.coreplatform.controller.CoRePlatformConstants"%>
+<%@page import="org.coreplatform.util.CoRePlatformConstants"%>
 <%@page import="org.coreplatform.entity.User"%>
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 	<div class="container-fluid">
@@ -17,9 +17,9 @@
 		<div class="collapse navbar-collapse"
 			id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<li><a href=<%=CoRePlatformConstants.PROJECT_PATH+"/topics"%>>Topics</a></li>
-				<li><a href=<%=CoRePlatformConstants.PROJECT_PATH+"/groups"%>>Groups</a></li>
-				<li><a href=<%=CoRePlatformConstants.PROJECT_PATH+"/users"%>>Users</a></li>
+				<li><a href=<%=CoRePlatformConstants.PROJECT_PATH + "/topics"%>>Topics</a></li>
+				<li><a href=<%=CoRePlatformConstants.PROJECT_PATH + "/groups"%>>Groups</a></li>
+				<li><a href=<%=CoRePlatformConstants.PROJECT_PATH + "/users"%>>Users</a></li>
 			</ul>
 
 			<%
@@ -29,15 +29,15 @@
 
 			<ul class="nav navbar-nav navbar-right">
 					<li><a href="#"><span class="glyphicon glyphicon-user"></span> Welcome, <%=user.getLastName()+" "+user.getFirstName()%></a></li>
-					<li><a href="logout"><i class="glyphicon glyphicon-off"></i> Logout</a></li>
+					<li><a href=<%=CoRePlatformConstants.PROJECT_PATH + "/logout"%>><i class="glyphicon glyphicon-off"></i> Logout</a></li>
 			</ul>
 
 			<%
 				} else {
 			%>
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="login">Login</a></li>
-				<li><a href="register">Register</a></li>
+				<li><a href=<%=CoRePlatformConstants.PROJECT_PATH + "/login"%>>Login</a></li>
+				<li><a href=<%=CoRePlatformConstants.PROJECT_PATH + "/register"%>>Register</a></li>
 			</ul>
 			<%
 				}

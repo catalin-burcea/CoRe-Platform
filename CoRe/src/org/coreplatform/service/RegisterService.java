@@ -10,25 +10,23 @@ import org.hibernate.criterion.Restrictions;
 public class RegisterService {
         
     public void register(User user){
-	        Session session = HibernateUtil.openSession();       
-       
-	        Transaction tx = null;        
-	        try {
-	            tx = session.getTransaction();
-	            tx.begin();
-	            session.saveOrUpdate(user);            
-	            tx.commit();
-	        } catch (Exception e) {
-	            if (tx != null) {
-	                tx.rollback();
-	            }
-	            e.printStackTrace();
-	        } finally {
-	            session.close();
-	        }
+		Session session = HibernateUtil.openSession();
+
+		Transaction tx = null;
+		try {
+			tx = session.getTransaction();
+			tx.begin();
+			session.saveOrUpdate(user);
+			tx.commit();
+		} catch (Exception e) {
+			if (tx != null) {
+				tx.rollback();
+			}
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
     }
-    
-    
     
     public boolean validEmail(String email){
         Session session = HibernateUtil.openSession();
@@ -51,25 +49,16 @@ public class RegisterService {
         return result;
     }
     
-    public boolean validUsernameLength(String username){
-    	if(username.length()<6 || username.length()>20){
-    		return false;
-    	}
-    	return true;
-    }
-    
-    public boolean validPasswordLength(String password){
-    	if(password.length()<6 || password.length()>20){
-    		return false;
-    	}
-    	return true;
-    }
-    
-    public boolean passwordsAreEqual(String password, String repeatPassword){
-    	if(!password.equals(repeatPassword)){
-    		return false;
-    	}
-    	return true;
-    }
+	public boolean validUsernameLength(String username) {
+		return (username.length() < 6 || username.length() > 20) ? false : true;
+	}
+
+	public boolean validPasswordLength(String password) {
+		return (password.length() < 6 || password.length() > 20) ? false : true;
+	}
+
+	public boolean passwordsAreEqual(String password, String repeatPassword) {
+		return password.equals(repeatPassword) ? true : false;
+	}
 
 }

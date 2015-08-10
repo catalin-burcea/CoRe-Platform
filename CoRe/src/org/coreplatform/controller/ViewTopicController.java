@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.log4j.Logger;
 import org.coreplatform.entity.Comment;
 import org.coreplatform.entity.Group;
 import org.coreplatform.entity.Review;
@@ -16,6 +17,7 @@ import org.coreplatform.entity.UserReviewVote;
 import org.coreplatform.service.GroupService;
 import org.coreplatform.service.TopicService;
 import org.coreplatform.service.ViewTopicService;
+import org.coreplatform.util.CoRePlatformConstants;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -31,6 +33,8 @@ import com.google.gson.Gson;
 
 @Controller
 public class ViewTopicController {
+	
+	static Logger log = Logger.getLogger(ViewTopicController.class.getName());
 
 	@RequestMapping(value = "/viewTopic/topic/{topicId}/group/{groupId}", method = RequestMethod.GET)
 	public String getViewTopicData(@PathVariable(value = "topicId") Integer topicId, @PathVariable(value = "groupId") Integer groupId, ModelMap model, HttpServletRequest request) {
@@ -66,48 +70,58 @@ public class ViewTopicController {
 
 	@RequestMapping(value = "/getTopicById/{topicId}", method = RequestMethod.GET)
 	public @ResponseBody
-	String getTopicById(@PathVariable(value = "topicId") Integer topicId) throws JSONException {
+	String getTopicById(@PathVariable(value = "topicId") Integer topicId) {
 
-		JSONObject obj = null;
-		String json = null;
-		if (topicId != null) {
-			TopicService ts = new TopicService();
-			Topic topic = ts.getTopicById(topicId);
-			obj = new JSONObject();
-			obj.put("code", topic.getCode());
-			obj.put("title", topic.getTitle());
-			obj.put("description", topic.getDescription());
-			obj.put("date", topic.getDate().toString());
-			obj.put("language", topic.getTag().getTitle());
-			obj.put("username", topic.getUser().getUsername());
-			if (topic.getGroup() != null) {
-				obj.put("groupId", topic.getGroup().getId());
+		try {
+			JSONObject obj = null;
+			String json = null;
+			if (topicId != null) {
+				TopicService ts = new TopicService();
+				Topic topic = ts.getTopicById(topicId);
+				obj = new JSONObject();
+				obj.put("code", topic.getCode());
+				obj.put("title", topic.getTitle());
+				obj.put("description", topic.getDescription());
+				obj.put("date", topic.getDate().toString());
+				obj.put("language", topic.getTag().getTitle());
+				obj.put("username", topic.getUser().getUsername());
+				if (topic.getGroup() != null) {
+					obj.put("groupId", topic.getGroup().getId());
+				}
+				List<Integer> listOfReviewIds = new ArrayList<Integer>();
+				for (Review a : topic.getReviews()) {
+					listOfReviewIds.add(a.getId());
+				}
+				json = new Gson().toJson(listOfReviewIds);
+				obj.put("ids", json.toString());
 			}
-			List<Integer> listOfReviewIds = new ArrayList<Integer>();
-			for (Review a : topic.getReviews()) {
-				listOfReviewIds.add(a.getId());
-			}
-			json = new Gson().toJson(listOfReviewIds);
-			obj.put("ids", json.toString());
+
+			return obj.toString();
+		} catch (JSONException e) {
+			log.error(CoRePlatformConstants.JSON_ADD_DATA_EXCEPTION + "- getTopicById()", e);
+			return null;
 		}
-
-		return obj.toString();
 	}
 
 	@RequestMapping(value = "/getReviewById", method = RequestMethod.GET)
 	public @ResponseBody
-	String getReviewById(@RequestParam(value = "reviewId") Integer reviewId) throws JSONException {
-
-		JSONObject obj = null;
-		ViewTopicService vts = new ViewTopicService();
-		Review review = vts.getReviewById(reviewId);
-		obj = new JSONObject();
-		obj.put("id", review.getId());
-		obj.put("code", review.getCode());
-		obj.put("description", review.getDescription());
-		obj.put("date", review.getDate().toString());
-		obj.put("username", review.getUser().getUsername());
-		return obj.toString();
+	String getReviewById(@RequestParam(value = "reviewId") Integer reviewId) {
+		try {
+			JSONObject obj = null;
+			ViewTopicService vts = new ViewTopicService();
+			Review review = vts.getReviewById(reviewId);
+			obj = new JSONObject();
+			obj.put("id", review.getId());
+			obj.put("code", review.getCode());
+			obj.put("description", review.getDescription());
+			obj.put("date", review.getDate().toString());
+			obj.put("username", review.getUser().getUsername());
+			
+			return obj.toString();
+		} catch (JSONException e) {
+			log.error(CoRePlatformConstants.JSON_ADD_DATA_EXCEPTION + " - getReviewById()", e);
+			return null;
+		}
 	}
 
 	@RequestMapping(value = "/getReviewStars", method = RequestMethod.GET)
@@ -123,49 +137,57 @@ public class ViewTopicController {
 
 	@RequestMapping(value = "/getTopicComments", method = RequestMethod.GET)
 	public @ResponseBody
-	String getTopicComments(@RequestParam(value = "topicId") Integer topicId, HttpServletRequest request) throws JSONException {
-
-		JSONObject obj = null;
-		JSONArray ja = new JSONArray();
-		if (topicId != null) {
-			ViewTopicService vts = new ViewTopicService();
-			TopicService ts = new TopicService();
-			Topic topic = ts.getTopicById(topicId);
-			List<Comment> comments = vts.getTopicComments(topic);
-			for (Comment comment : comments) {
-				obj = new JSONObject();
-				obj.put("id", comment.getId());
-				obj.put("content", comment.getContent());
-				obj.put("date", comment.getDate());
-				obj.put("username", comment.getUser().getUsername());
-				obj.put("name", comment.getUser().getFirstName() + " " + comment.getUser().getLastName());
-				ja.put(obj);
+	String getTopicComments(@RequestParam(value = "topicId") Integer topicId, HttpServletRequest request) {
+		try {
+			JSONObject obj = null;
+			JSONArray ja = new JSONArray();
+			if (topicId != null) {
+				ViewTopicService vts = new ViewTopicService();
+				TopicService ts = new TopicService();
+				Topic topic = ts.getTopicById(topicId);
+				List<Comment> comments = vts.getTopicComments(topic);
+				for (Comment comment : comments) {
+					obj = new JSONObject();
+					obj.put("id", comment.getId());
+					obj.put("content", comment.getContent());
+					obj.put("date", comment.getDate());
+					obj.put("username", comment.getUser().getUsername());
+					obj.put("name", comment.getUser().getFirstName() + " " + comment.getUser().getLastName());
+					ja.put(obj);
+				}
 			}
-		}
 
-		return ja.toString();
+			return ja.toString();
+		} catch (JSONException e) {
+			log.error(CoRePlatformConstants.JSON_ADD_DATA_EXCEPTION + " - getTopicComments()", e);
+			return null;
+		}
 	}
 
 	@RequestMapping(value = "/getAdmin", method = RequestMethod.GET)
 	public @ResponseBody
-	String getAdmin(@RequestParam(value = "groupId", required = false) String groupId, HttpServletRequest request) throws JSONException {
-
-		JSONObject obj = new JSONObject();
-		User user = (User) request.getSession().getAttribute("user");
-		if (user != null && CoRePlatformConstants.ADMIN.equals(user.getUsername()) == true) {
-			obj.put("admin", CoRePlatformConstants.ADMIN);
-		}
-		if (!groupId.equals("null")) {
-			ViewTopicService vts = new ViewTopicService();
-			GroupService gs = new GroupService();
-			Group group = gs.getGroupById(Integer.parseInt(groupId));
-			boolean isAdmin = vts.isAdmin(group, user);
-			if (isAdmin == true) {
-				obj.put("groupAdmin", user);
+	String getAdmin(@RequestParam(value = "groupId", required = false) String groupId, HttpServletRequest request) {
+		try {
+			JSONObject obj = new JSONObject();
+			User user = (User) request.getSession().getAttribute("user");
+			if (user != null && CoRePlatformConstants.ADMIN.equals(user.getUsername()) == true) {
+				obj.put("admin", CoRePlatformConstants.ADMIN);
 			}
-		}
+			if (!groupId.equals("null")) {
+				ViewTopicService vts = new ViewTopicService();
+				GroupService gs = new GroupService();
+				Group group = gs.getGroupById(Integer.parseInt(groupId));
+				boolean isAdmin = vts.isAdmin(group, user);
+				if (isAdmin == true) {
+					obj.put("groupAdmin", user);
+				}
+			}
 
-		return obj.toString();
+			return obj.toString();
+		} catch (JSONException e) {
+			log.error(CoRePlatformConstants.JSON_ADD_DATA_EXCEPTION + " - getAdmin()", e);
+			return null;
+		}
 	}
 
 	@RequestMapping(value = "/deleteComment", method = RequestMethod.POST)
@@ -194,26 +216,30 @@ public class ViewTopicController {
 
 	@RequestMapping(value = "/getReviewComments", method = RequestMethod.GET)
 	public @ResponseBody
-	String getReviewComments(@RequestParam(value = "reviewId") Integer reviewId) throws JSONException {
-
-		JSONObject obj = null;
-		JSONArray ja = new JSONArray();
-		if (reviewId != null) {
-			ViewTopicService vts = new ViewTopicService();
-			Review review = vts.getReviewById(reviewId);
-			List<Comment> comments = vts.getReviewComments(review);
-			for (Comment comment : comments) {
-				obj = new JSONObject();
-				obj.put("id", comment.getId());
-				obj.put("content", comment.getContent());
-				obj.put("date", comment.getDate());
-				obj.put("username", comment.getUser().getUsername());
-				obj.put("name", comment.getUser().getFirstName() + " " + comment.getUser().getLastName());
-				ja.put(obj);
+	String getReviewComments(@RequestParam(value = "reviewId") Integer reviewId) {
+		try {
+			JSONObject obj = null;
+			JSONArray ja = new JSONArray();
+			if (reviewId != null) {
+				ViewTopicService vts = new ViewTopicService();
+				Review review = vts.getReviewById(reviewId);
+				List<Comment> comments = vts.getReviewComments(review);
+				for (Comment comment : comments) {
+					obj = new JSONObject();
+					obj.put("id", comment.getId());
+					obj.put("content", comment.getContent());
+					obj.put("date", comment.getDate());
+					obj.put("username", comment.getUser().getUsername());
+					obj.put("name", comment.getUser().getFirstName() + " " + comment.getUser().getLastName());
+					ja.put(obj);
+				}
 			}
-		}
 
-		return ja.toString();
+			return ja.toString();
+		} catch (JSONException e) {
+			log.error(CoRePlatformConstants.JSON_ADD_DATA_EXCEPTION + " - getReviewComments()", e);
+			return null;
+		}
 	}
 
 	@RequestMapping(value = "/insertTopicComment", method = RequestMethod.POST)
@@ -246,7 +272,7 @@ public class ViewTopicController {
 	@RequestMapping(value = "/addStars", method = RequestMethod.POST)
 	public @ResponseBody
 	String addStars(@RequestParam(value = "numberOfStars") Integer numberOfStars, @RequestParam(value = "reviewId") Integer reviewId, HttpServletRequest request)
-			throws JSONException {
+			{
 
 		User user = (User) request.getSession().getAttribute("user");
 		ViewTopicService vts = new ViewTopicService();

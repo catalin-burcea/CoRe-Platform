@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.log4j.Logger;
 import org.coreplatform.entity.Group;
 import org.coreplatform.entity.Tag;
 import org.coreplatform.entity.Topic;
@@ -11,6 +12,7 @@ import org.coreplatform.entity.User;
 import org.coreplatform.entity.UserGroup;
 import org.coreplatform.service.GroupService;
 import org.coreplatform.service.TopicService;
+import org.coreplatform.util.CoRePlatformConstants;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,23 +26,27 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class TopicController {
+	
+	static Logger log = Logger.getLogger(TopicController.class.getName());
 
 	@RequestMapping(value = "/getTags", method = RequestMethod.GET)
-	public @ResponseBody
-	String getTags() throws JSONException {
-
-		JSONObject obj = null;
-		JSONArray ja = new JSONArray();
-		TopicService ts = new TopicService();
-		List<Tag> tags = ts.getTags();
-		for (Tag tag : tags) {
-			obj = new JSONObject();
-			obj.put("id", tag.getId());
-			obj.put("title", tag.getTitle());
-			ja.put(obj);
+	public @ResponseBody String getTags() {
+		try{
+			JSONObject obj = null;
+			JSONArray ja = new JSONArray();
+			TopicService ts = new TopicService();
+			List<Tag> tags = ts.getTags();
+			for (Tag tag : tags) {
+				obj = new JSONObject();
+				obj.put("id", tag.getId());
+				obj.put("title", tag.getTitle());
+				ja.put(obj);
+			}
+			return ja.toString();
+		}catch(JSONException e) {
+			log.error(CoRePlatformConstants.JSON_ADD_DATA_EXCEPTION + " - getTags()", e);
+			return null;
 		}
-		return ja.toString();
-
 	}
 
 	private void getTopics(ModelMap model, HttpServletRequest request, Integer groupId) {
@@ -102,7 +108,6 @@ public class TopicController {
 		String groupParameter = groupId != null ? "/group/" + groupId : "";
 		
 		return "redirect:/topics" + groupParameter;
-
 	}
 
 	@RequestMapping(value = "/insertTopic", method = RequestMethod.POST)

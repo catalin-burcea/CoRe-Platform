@@ -9,16 +9,14 @@ import org.hibernate.criterion.Restrictions;
 public class LoginService {
 
     public boolean authenticate(String username, String password) {
-    	if(username!=null && password!=null){
-    		password=CryptWithMD5.cryptWithMD5(password);
-            User user = getUser(username,password);          
-            if(user!=null){
-                return true;
-            }
-    	}
-    	
-    	return false;
-    	
+		if (username != null && password != null) {
+			password = CryptWithMD5.cryptWithMD5(password);
+			User user = getUser(username, password);
+			if (user != null) {
+				return true;
+			}
+		}
+		return false;
     }
     
     public User getUser(String username, String password) {
@@ -63,6 +61,4 @@ public class LoginService {
         }
         return user;
     }
-    
-    
 }

@@ -161,9 +161,6 @@ public class GroupService {
 	        return list;
 	}
 	
-	
-	
-	
 	@SuppressWarnings("unchecked")
 	public List<UserGroup> getMemberGroups(User user){
 		 List<UserGroup> list = new ArrayList<UserGroup>();
@@ -330,39 +327,39 @@ public class GroupService {
 	
 	
 	public Group createGroup(User user, String data){
-	        Session session = HibernateUtil.openSession();
-	        Transaction tx = null;     
-	        Group group=null;
-	        try {
-	            tx = session.getTransaction();
-	            tx.begin();
-	            JSONObject obj = new JSONObject(data);
-	            String name = obj.getString("name");
-	            group = new Group(name);
-	            session.save(group);
-	            UserGroup ug = new UserGroup(new UserGroupId(user.getId(),group.getId()),group,user,new Date(),"yes");
-	            session.save(ug);
-	    		JSONArray ja = new JSONArray(obj.get("memberIds").toString());
-	    		for(int i=0;i<ja.length();i++){
-	    	 		JSONObject aux = new JSONObject(ja.get(i).toString());
-	    	 		Integer userId = (Integer) aux.getInt("memberId");
-	    	 		Criteria criteria= session.createCriteria(User.class);
-	    	 		criteria.add(Restrictions.eq("id", userId));
-	    	 		User currentUser = (User) criteria.list().get(0);
-	    	 		ug = new UserGroup(new UserGroupId(currentUser.getId(),group.getId()),group,currentUser,new Date(),"no");
-	    	 		session.save(ug);
-	    		}
-	   
-	            tx.commit();
-	        } catch (Exception e) {
-	            if (tx != null) {
-	                tx.rollback();
-	            }
-	            e.printStackTrace();
-	        } finally {
-	            session.close();
-	        }
-	        return group;
+        Session session = HibernateUtil.openSession();
+        Transaction tx = null;     
+        Group group=null;
+        try {
+            tx = session.getTransaction();
+            tx.begin();
+            JSONObject obj = new JSONObject(data);
+            String name = obj.getString("name");
+            group = new Group(name);
+            session.save(group);
+            UserGroup ug = new UserGroup(new UserGroupId(user.getId(),group.getId()),group,user,new Date(),"yes");
+            session.save(ug);
+    		JSONArray ja = new JSONArray(obj.get("memberIds").toString());
+    		for(int i=0;i<ja.length();i++){
+    	 		JSONObject aux = new JSONObject(ja.get(i).toString());
+    	 		Integer userId = (Integer) aux.getInt("memberId");
+    	 		Criteria criteria= session.createCriteria(User.class);
+    	 		criteria.add(Restrictions.eq("id", userId));
+    	 		User currentUser = (User) criteria.list().get(0);
+    	 		ug = new UserGroup(new UserGroupId(currentUser.getId(),group.getId()),group,currentUser,new Date(),"no");
+    	 		session.save(ug);
+    		}
+   
+            tx.commit();
+        } catch (Exception e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return group;
 	}
 	
 	public UserGroup getUserGroup(User user, Group group){
@@ -387,6 +384,4 @@ public class GroupService {
         }
         return ug;
 	}
-
-	
 }

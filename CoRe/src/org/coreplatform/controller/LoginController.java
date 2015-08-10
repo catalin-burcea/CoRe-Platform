@@ -3,6 +3,7 @@ package org.coreplatform.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.coreplatform.entity.User;
 import org.coreplatform.service.ActiveUsersService;
 import org.coreplatform.service.LoginService;
