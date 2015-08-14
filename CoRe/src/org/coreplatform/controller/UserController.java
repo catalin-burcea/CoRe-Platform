@@ -23,8 +23,7 @@ public class UserController {
 	static Logger log = Logger.getLogger(UserController.class.getName());
 
 	@RequestMapping(value = "/isLoggedIn", method = RequestMethod.GET)
-	public @ResponseBody
-	String isLoggedIn(HttpServletRequest request) {
+	public @ResponseBody String isLoggedIn(HttpServletRequest request) {
 
 		User user = (User) request.getSession().getAttribute("user");
 		return user != null ? "true" : "false";

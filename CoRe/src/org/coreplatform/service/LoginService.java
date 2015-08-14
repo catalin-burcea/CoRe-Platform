@@ -5,7 +5,9 @@ import org.coreplatform.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Service;
 
+@Service
 public class LoginService {
 
     public boolean authenticate(String username, String password) {

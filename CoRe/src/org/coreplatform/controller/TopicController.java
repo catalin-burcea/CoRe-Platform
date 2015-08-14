@@ -87,7 +87,7 @@ public class TopicController {
 	@RequestMapping(value = "/topics", method = RequestMethod.GET)
 	public String getPublicTopics(ModelMap model, HttpServletRequest request) {
 
-		getTopics(model, request, null);
+		this.getTopics(model, request, null);
 		return "topics";
 
 	}

@@ -69,8 +69,7 @@ public class ViewTopicController {
 	}
 
 	@RequestMapping(value = "/getTopicById/{topicId}", method = RequestMethod.GET)
-	public @ResponseBody
-	String getTopicById(@PathVariable(value = "topicId") Integer topicId) {
+	public @ResponseBody String getTopicById(@PathVariable(value = "topicId") Integer topicId) {
 
 		try {
 			JSONObject obj = null;
@@ -104,8 +103,7 @@ public class ViewTopicController {
 	}
 
 	@RequestMapping(value = "/getReviewById", method = RequestMethod.GET)
-	public @ResponseBody
-	String getReviewById(@RequestParam(value = "reviewId") Integer reviewId) {
+	public @ResponseBody String getReviewById(@RequestParam(value = "reviewId") Integer reviewId) {
 		try {
 			JSONObject obj = null;
 			ViewTopicService vts = new ViewTopicService();
@@ -125,8 +123,7 @@ public class ViewTopicController {
 	}
 
 	@RequestMapping(value = "/getReviewStars", method = RequestMethod.GET)
-	public @ResponseBody
-	String getReviewStars(@RequestParam(value = "reviewId") Integer reviewId) {
+	public @ResponseBody String getReviewStars(@RequestParam(value = "reviewId") Integer reviewId) {
 
 		ViewTopicService vts = new ViewTopicService();
 		Review review = vts.getReviewById(reviewId);

@@ -1,6 +1,6 @@
 package org.coreplatform.util;
 
-public class CoRePlatformConstants {
+public interface CoRePlatformConstants {
 	
 	public static final String APP = "/CoRe/app";
 	public static final String PROJECT_PATH = "/CoRe";
