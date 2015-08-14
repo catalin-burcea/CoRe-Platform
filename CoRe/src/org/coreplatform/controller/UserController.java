@@ -1,17 +1,16 @@
 package org.coreplatform.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.coreplatform.entity.User;
-import org.coreplatform.service.ActiveUsersService;
 import org.coreplatform.service.GroupService;
-import org.coreplatform.util.CoRePlatformConstants;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import org.coreplatform.service.OnlineUsersService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class UserController {
-	
+
 	static Logger log = Logger.getLogger(UserController.class.getName());
 
 	@RequestMapping(value = "/isLoggedIn", method = RequestMethod.GET)
@@ -31,21 +30,28 @@ public class UserController {
 		return user != null ? "true" : "false";
 	}
 
-	@RequestMapping(value = "/getActiveUsers", method = RequestMethod.GET)
-	public @ResponseBody String getActiveUsers() {
-
+	@RequestMapping(value = "/getOnlineUsers", method = RequestMethod.GET)
+	public void getOnlineUsers(HttpServletResponse response) {
+		response.setContentType("text/event-stream");
+		response.setCharacterEncoding("UTF-8");
 		try {
-			JSONObject obj = null;
-			JSONArray ja = new JSONArray();
-			for (int i = 0; i < ActiveUsersService.activeUsers.size(); i++) {
-				obj = new JSONObject();
-				obj.put("id", ActiveUsersService.activeUsers.get(i));
-				ja.put(obj);
+			PrintWriter writer = response.getWriter();
+			boolean updated = false;
+			while (true) {
+				if (OnlineUsersService.changed < OnlineUsersService.onlineUsers.size()) {
+					if(!updated){
+						updated = true;
+						OnlineUsersService.changed++;
+						writer.write("event:onlineUsers\n");
+						writer.write("data: " + OnlineUsersService.onlineUsers.toString() + "\n\n");
+						writer.flush();
+					}
+				}else{
+					updated = false;
+				}
 			}
-			return ja.toString();
-		} catch (JSONException e) {
-			log.error(CoRePlatformConstants.JSON_ADD_DATA_EXCEPTION + " - getActiveUsers()", e);
-			return null;
+		} catch (IOException e1) {
+			log.error("error getting response.getWriter()" + " - getOnlineUsers()", e1);
 		}
 	}
 

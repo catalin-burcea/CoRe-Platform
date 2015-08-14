@@ -51,6 +51,41 @@ $(function () {
 		event.preventDefault();
 		$(this).closest('#comments').removeClass('active');
 	});   
+	
+	//--------update online users---------
+	
+	if (!!window.EventSource) {
+			console.info("Event source available");
+		    var source = new EventSource('/CoRe/getOnlineUsers');
+
+ 		    source.addEventListener('onlineUsers', function(e) { 
+ 		    	$(".offline-user").show();
+ 				$(".online-user").hide();
+ 				var data = e.data;
+ 				data = JSON.parse(data);
+ 				$(".offline-user").show();
+ 				$(".online-user").hide();
+ 				data.forEach(function( item ) {
+					$("#offline-user"+item).hide();
+					$("#online-user"+item).show();
+ 				});
+		    });
+
+		   source.addEventListener('open', function(e) {
+		        console.log("Connection was opened.");
+		   }, false);
+
+		   source.addEventListener('error', function(e) {
+		        if (e.readyState == EventSource.CLOSED) {
+		            console.log("Connection was closed.");
+		        } else {
+		            console.log(e.readyState);   
+		        }
+		   }, false);
+		} else {
+			log.error("No SSE available");
+		}
+	
 });
 
 </script>
@@ -297,7 +332,7 @@ $(function () {
 				</c:choose>
 <%-- 				<%} %>
  --%>					<span id="online-user${ug.getUser().getId()}" class="label label-success online-user" style="display:none">online</span>
-					<span id="offline-user${ug.getUser().getId()}" class="label label-warning offline-user" style="display:none">offline</span>
+						<span id="offline-user${ug.getUser().getId()}" class="label label-warning offline-user" style="display:none">offline</span>
 
 			        <div class="span8">
 			            <h3><span class="glyphicon glyphicon-user"></span>${ug.getUser().getLastName()} ${ug.getUser().getFirstName()}</h3>

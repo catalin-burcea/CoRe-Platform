@@ -26,7 +26,7 @@ $(document).ready(function(){
     window.updateGroup = function(name, groupId){
 		$.ajax({
 			url : path+"/updateGroup",
-			type : "POST",
+			method : "POST",
 			data : {
 				"groupName" : name,
 				"groupId":groupId,

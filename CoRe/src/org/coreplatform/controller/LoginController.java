@@ -3,10 +3,9 @@ package org.coreplatform.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
 import org.coreplatform.entity.User;
-import org.coreplatform.service.ActiveUsersService;
 import org.coreplatform.service.LoginService;
+import org.coreplatform.service.OnlineUsersService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,19 +36,26 @@ public class LoginController {
 		if (result == true) {
 			request.getSession().setAttribute("user", user);
 			request.getSession().setAttribute("logged", "true");
-			ActiveUsersService.activeUsers.add(user.getId());
+			OnlineUsersService.onlineUsers.add(user.getId());
+	    	OnlineUsersService.changed = 0;
 			return "redirect:/topics";
 		} else {
 			errorMessage = "Username or password is incorrect! ";
-			model.addAttribute("errorMessage", errorMessage);
+			model.addAttribute("errorMessage", this.errorMessage);
 			return "login";
 		}
 	}
 	
 	@RequestMapping(value = "/logout", method=RequestMethod.GET)
-    public ModelAndView displayLogout(HttpServletRequest request, HttpServletResponse response){
-        ModelAndView model = new ModelAndView("logout");
-        return model;
+    public String displayLogout(HttpServletRequest request, HttpServletResponse response){
+		
+    	User user  = (User)request.getSession().getAttribute("user");  
+    	OnlineUsersService.onlineUsers.remove(user.getId());
+    	OnlineUsersService.changed = 0;
+    	request.getSession().removeAttribute("logged");
+    	request.getSession().removeAttribute("user");
+    	request.getSession().invalidate();
+        return "login";
     }
 
 }

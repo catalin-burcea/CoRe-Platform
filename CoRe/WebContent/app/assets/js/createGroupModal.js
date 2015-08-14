@@ -40,7 +40,7 @@ $(document).ready(function () {
 		
 		$.ajax({
 			url : path+"/createGroup",
-			type : "POST",
+			method : "POST",
 			contentType: 'application/json', 
 			data: JSON.stringify(data) ,
 
