@@ -45,8 +45,8 @@ public class TopicController {
 			return ja.toString();
 		}catch(JSONException e) {
 			log.error(CoRePlatformConstants.JSON_ADD_DATA_EXCEPTION + " - getTags()", e);
-			return null;
 		}
+		return null;
 	}
 
 	private void getTopics(ModelMap model, HttpServletRequest request, Integer groupId) {
@@ -106,7 +106,6 @@ public class TopicController {
 		TopicService ts = new TopicService();
 		ts.deleteTopic(topicId);
 		String groupParameter = groupId != null ? "/group/" + groupId : "";
-		
 		return "redirect:/topics" + groupParameter;
 	}
 

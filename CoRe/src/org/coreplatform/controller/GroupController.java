@@ -77,8 +77,8 @@ public class GroupController {
 			return ja.toString();
 		} catch (JSONException e) {
 			log.error(CoRePlatformConstants.JSON_ADD_DATA_EXCEPTION + " - getUsers()", e);
-			return null;
 		}
+		return null;
 	}
 	
 	@RequestMapping(value = "/getGroupById", method = RequestMethod.GET)
@@ -97,8 +97,8 @@ public class GroupController {
 			return obj.toString();
 		} catch (JSONException e) {
 			log.error(CoRePlatformConstants.JSON_ADD_DATA_EXCEPTION + " - getGroupById()", e);
-			return null;
 		}
+		return null;
 	}
 	
 	@RequestMapping(value = "/groups", method = RequestMethod.GET)

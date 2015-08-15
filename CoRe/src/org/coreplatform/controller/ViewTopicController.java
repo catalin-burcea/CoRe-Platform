@@ -98,8 +98,8 @@ public class ViewTopicController {
 			return obj.toString();
 		} catch (JSONException e) {
 			log.error(CoRePlatformConstants.JSON_ADD_DATA_EXCEPTION + "- getTopicById()", e);
-			return null;
 		}
+		return null;
 	}
 
 	@RequestMapping(value = "/getReviewById", method = RequestMethod.GET)
@@ -118,8 +118,8 @@ public class ViewTopicController {
 			return obj.toString();
 		} catch (JSONException e) {
 			log.error(CoRePlatformConstants.JSON_ADD_DATA_EXCEPTION + " - getReviewById()", e);
-			return null;
 		}
+		return null;
 	}
 
 	@RequestMapping(value = "/getReviewStars", method = RequestMethod.GET)
@@ -157,8 +157,8 @@ public class ViewTopicController {
 			return ja.toString();
 		} catch (JSONException e) {
 			log.error(CoRePlatformConstants.JSON_ADD_DATA_EXCEPTION + " - getTopicComments()", e);
-			return null;
 		}
+		return null;
 	}
 
 	@RequestMapping(value = "/getAdmin", method = RequestMethod.GET)
@@ -183,8 +183,8 @@ public class ViewTopicController {
 			return obj.toString();
 		} catch (JSONException e) {
 			log.error(CoRePlatformConstants.JSON_ADD_DATA_EXCEPTION + " - getAdmin()", e);
-			return null;
 		}
+		return null;
 	}
 
 	@RequestMapping(value = "/deleteComment", method = RequestMethod.POST)
@@ -235,8 +235,8 @@ public class ViewTopicController {
 			return ja.toString();
 		} catch (JSONException e) {
 			log.error(CoRePlatformConstants.JSON_ADD_DATA_EXCEPTION + " - getReviewComments()", e);
-			return null;
 		}
+		return null;
 	}
 
 	@RequestMapping(value = "/insertTopicComment", method = RequestMethod.POST)
