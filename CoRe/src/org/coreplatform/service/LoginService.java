@@ -12,7 +12,7 @@ public class LoginService {
 
     public boolean authenticate(String username, String password) {
 		if (username != null && password != null) {
-			password = CryptWithMD5.cryptWithMD5(password);
+			password = CryptDataService.crypt(password);
 			User user = getUser(username, password);
 			if (user != null) {
 				return true;

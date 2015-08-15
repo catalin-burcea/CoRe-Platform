@@ -4,7 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.coreplatform.entity.User;
-import org.coreplatform.service.CryptWithMD5;
+import org.coreplatform.service.CryptDataService;
 import org.coreplatform.service.LoginService;
 import org.coreplatform.service.RegisterService;
 import org.springframework.stereotype.Controller;
@@ -65,7 +65,7 @@ public class RegisterController {
 				model.addAttribute("errorMessage", errorMessage);
 				return "register";
 			}
-			user.setPassword(CryptWithMD5.cryptWithMD5(user.getPassword()));
+			user.setPassword(CryptDataService.crypt(user.getPassword()));
 			successMessage = "Successfully registered!";
 			rs.register(user);
 		}

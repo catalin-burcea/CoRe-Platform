@@ -44,9 +44,12 @@ public class LoginController {
 	}
 	
 	@RequestMapping(value = "/logout", method=RequestMethod.GET)
-    public String displayLogout(HttpServletRequest request, HttpServletResponse response){
+    public String displayLogout(HttpServletRequest request, HttpServletResponse response) {
 		
-    	User user  = (User)request.getSession().getAttribute("user");  
+    	User user  = (User)request.getSession().getAttribute("user");
+    	if(user == null) {
+    		return "login";
+    	}
     	OnlineUsersService.onlineUsers.remove(user.getId());
     	OnlineUsersService.changed = 0;
     	request.getSession().removeAttribute("logged");
