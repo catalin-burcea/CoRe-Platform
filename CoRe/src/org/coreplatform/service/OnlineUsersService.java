@@ -10,5 +10,5 @@ import org.springframework.stereotype.Service;
 @Service
 public class OnlineUsersService {
 	public static Set<Integer> onlineUsers = Collections.synchronizedSet(new HashSet<Integer>());
-	volatile public static int changed = 0;
+	public static volatile int changed = 0;
 }

@@ -30,12 +30,13 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/getOnlineUsers", method = RequestMethod.GET)
-	public void getOnlineUsers(HttpServletResponse response) {
+	public void getOnlineUsers(HttpServletResponse response, HttpServletRequest request) {
 		response.setContentType("text/event-stream");
 		response.setCharacterEncoding("UTF-8");
 		try {
 			PrintWriter writer = response.getWriter();
 			boolean updated = false;
+			Integer userID = ((User) request.getSession().getAttribute("user")).getId();
 			while (true) {
 				if (OnlineUsersService.changed < OnlineUsersService.onlineUsers.size()) {
 					if(!updated){
@@ -45,10 +46,11 @@ public class UserController {
 						writer.write("data: " + OnlineUsersService.onlineUsers.toString() + "\n\n");
 						writer.flush();
 					}
-				}else{
+				}else if(!OnlineUsersService.onlineUsers.contains(userID)) {
+					break;
+				}else
 					updated = false;
 				}
-			}
 		} catch (IOException e1) {
 			log.error("error getting response.getWriter()" + " - getOnlineUsers()", e1);
 		}
